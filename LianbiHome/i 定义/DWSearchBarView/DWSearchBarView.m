@@ -72,17 +72,19 @@
     [_vc.view addSubview:self];
 
     _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(10,CGNavView_20h() + 7, w - 80, 30)];
-    UIView * bgView = [[UIView alloc]initWithFrame:self.bounds];
+    UIView * bgView = [[UIView alloc]initWithFrame:_searchBar.frame];
     bgView.backgroundColor = [UIColor whiteColor];
+    JNViewStyle(bgView, 15, nil, 0);
     _searchBar.backgroundImage = [self makeImageWithView:bgView withSize:CGSizeMake(_searchBar.frame.size.width, _searchBar.frame.size.height)];
-    _searchBar.placeholder = @"查询妆品,成分";
+    _searchBar.placeholder = @"";
     _searchBar.delegate = self;
- //   _searchBar.barTintColor = COLOR_WHITE;
+    _searchBar.barTintColor = COLOR_WHITE;
+    [_searchBar.layer setCornerRadius:15];
     [self addSubview:_searchBar];
 
     UITextField * searchTextField = [_searchBar valueForKey:@"_searchField"];
-//    searchTextField.backgroundColor = COLOR_B6;
-//    searchTextField.textColor = COLOR_B2;
+    searchTextField.backgroundColor = COLOR_WHITE;
+    searchTextField.textColor = COLOR_B2;
 //    [searchTextField becomeFirstResponder];
     _textField = searchTextField;
 
@@ -93,10 +95,8 @@
     [btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
     [self  addSubview:btn];
 
-
-    [self createUpView];
-    [self createDownView];
-
+    [self downdata];
+    
     [UIView animateWithDuration:0.2 animations:^{
         CGRect frame = self.frame;
         frame.origin.x = 0;
@@ -118,8 +118,9 @@
             [view removeFromSuperview];
         }
     }
-    self.upDatasArrays = [NSMutableArray arrayWithArray:@[@"10",@"11",@"12",@"13"]];
+   // self.upDatasArrays = [NSMutableArray arrayWithArray:@[@"10",@"11",@"12",@"13"]];
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 100, hei)];
+    label.textColor = SXRGB16Color(0x636363);
     label.text = @"热门搜索";
     [_upView addSubview:label];
 
@@ -148,11 +149,12 @@
     _upView.frame = frame;
 
     UILabel * label1 = [[UILabel alloc]initWithFrame:CGRectMake(20, frame.size.height - hei, 100, hei)];
+    label1.textColor = SXRGB16Color(0x636363);
     label1.text = @"历史搜索";
     [_upView addSubview:label1];
 
     UIView * xian = [[UIView alloc]initWithFrame:CGRectMake(x, frame.size.height - 1, w - 2 * x,1)];
-    xian.backgroundColor = [UIColor blueColor];
+    xian.backgroundColor = SXRGB16Color(0xd4d4d4);
     [_upView addSubview:xian];
 
     [self createDownView];
@@ -182,22 +184,34 @@
         UIButton * btn1 = [[UIButton alloc]initWithFrame:CGRectMake(0, 50 * i + hei, w, 50)];
         [btn1 addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [_downView addSubview:btn1];
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(x, 10, w - 2 * x, 30)];
+
+        [btn1 addSubview:JnImageView(CGRectMake( x , 15, 20, 20), MYimageNamed(@"02_searchtime"))];
+
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(x + 40, 10, w - 2 * x, 30)];
         label.text  = downArray[i];
+        label.textColor = SXRGB16Color(0x333333);
         [btn1 addSubview:label];
 
-        UIButton * btn2 = [[UIButton alloc]initWithFrame:CGRectMake(w - 50 - x, 0, 50, 50)];
-        [btn2 setBackgroundImage:[UIImage imageNamed:@"aa"] forState:0];
+        UIButton * btn2 = [[UIButton alloc]initWithFrame:CGRectMake(w - 65 , 0, 50, 50)];
+        [btn2 setBackgroundImage:[UIImage imageNamed:@"02_delete"] forState:0];
         btn2.tag = 1000+i;
         [btn2 addTarget:self action:@selector(closeClick:) forControlEvents:UIControlEventTouchUpInside];
         btn1.tag = 100 + i;
+        [btn1 addSubview:btn2];
 
         UIView * xian = [[UIView alloc]initWithFrame:CGRectMake(x, 50 - 1, w - 2 * x,1)];
-        xian.backgroundColor = [UIColor blueColor];
+        xian.backgroundColor = SXRGB16Color(0xd4d4d4);
         [btn1 addSubview:xian];
     }
     _downView.contentSize = CGSizeMake(w, 50 * downArray.count);
     self.seatchbarArrays = [NSMutableArray arrayWithArray:downArray];
+
+    [[Listeningkeyboard sharedInstance]startlisteningblockcompletion:^(CGFloat h) {
+        [_downView setH:SCREEN_HEIGHT - CGNavView_h() - _upView.frame.size.height - h];
+    } keyboard:^(CGFloat h) {
+        [_downView setH:SCREEN_HEIGHT - CGNavView_h() - _upView.frame.size.height ];
+    }];
+
 }
 
 
@@ -273,13 +287,20 @@
     return image;
 }
 
-//FOUNDATION_EXPORT  double   CGNavView_20h(void){
-//    if (([UIScreen instancesRespondToSelector:@selector(nativeBounds)] ? CGSizeEqualToSize(CGSizeMake(1125.000 , 2436.000),[[UIScreen mainScreen] currentMode].size) : NO))
-//        return 44;
-//    return 20 ;
-//}
-//FOUNDATION_EXPORT  double   CGNavView_h(void){
-//    return CGNavView_20h() + 44 ;
-//}
+-(void)downdata{
+
+    [MyNetworkingManager GET:@"home/App/hot_search" withparameters:nil progress:^(NSProgress * _Nonnull Progress) {
+
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        id responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary * dict = responseDict[@"data"];
+        self.upDatasArrays = dict[@"keyword"];
+        NSLog(@"%@",dict[@"keyword"]);
+//        NSLog(@"%@",self.upDatasArrays.count)
+        [self createUpView];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+
+    } type:0];
+}
 
 @end

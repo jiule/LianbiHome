@@ -23,3 +23,24 @@
 @implementation InformationImageModel
 
 @end
+
+@implementation KxformationModel
+
+-(NSMutableArray *)dataArrays
+{
+    if (!_dataArrays) {
+        _dataArrays = [NSMutableArray array];
+    }
+    return _dataArrays;
+}
+
+
+@end
+
+@implementation  KxModel
+-(void)setDict:(NSMutableDictionary *)dict
+{
+    [super setDict:dict];
+    self.kx_id = dict[@"id"];
+}
+@end

@@ -33,7 +33,6 @@
 }
 -(void)setDict:(NSMutableDictionary *)dict{
     _dict = dict;
-    
     NSArray * array = [self getAllProperties];
     for (NSString *str in array) {
         if ([self judgewithStr:str]) {

@@ -60,6 +60,7 @@
 		189CBE0321192EBB000E6E3F /* InformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 189CBDF621192EBB000E6E3F /* InformationCell.m */; };
 		189CBE0421192EBB000E6E3F /* InformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 189CBDF721192EBB000E6E3F /* InformationModel.m */; };
 		189CBE0521192EBB000E6E3F /* InformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189CBDF821192EBB000E6E3F /* InformationView.m */; };
+		189CBE09211938ED000E6E3F /* KxformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 189CBE08211938ED000E6E3F /* KxformationCell.m */; };
 		E4C51B0005518505A67E9AC8 /* libPods-LianbiHome.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89A4A02FD89C9D5F40F65B71 /* libPods-LianbiHome.a */; };
 /* End PBXBuildFile section */
 
@@ -175,6 +176,8 @@
 		189CBDFB21192EBB000E6E3F /* InformationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationModel.h; sourceTree = "<group>"; };
 		189CBDFC21192EBB000E6E3F /* InformationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationCell.h; sourceTree = "<group>"; };
 		189CBDFD21192EBB000E6E3F /* InformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationView.h; sourceTree = "<group>"; };
+		189CBE07211938ED000E6E3F /* KxformationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KxformationCell.h; path = ../../../../KxformationCell.h; sourceTree = "<group>"; };
+		189CBE08211938ED000E6E3F /* KxformationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = KxformationCell.m; path = ../../../../KxformationCell.m; sourceTree = "<group>"; };
 		1947087169B3E225A2BE41D1 /* Pods-LianbiHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LianbiHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LianbiHome/Pods-LianbiHome.debug.xcconfig"; sourceTree = "<group>"; };
 		7B0B4F4A92533574FFEA3C84 /* Pods-LianbiHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LianbiHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-LianbiHome/Pods-LianbiHome.release.xcconfig"; sourceTree = "<group>"; };
 		89A4A02FD89C9D5F40F65B71 /* libPods-LianbiHome.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LianbiHome.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -262,11 +265,11 @@
 		189CBD6121192EAF000E6E3F /* DWTableView */ = {
 			isa = PBXGroup;
 			children = (
-				189CBD6221192EAF000E6E3F /* DwTableViewModel.m */,
-				189CBD6321192EAF000E6E3F /* DwTableViewCell.m */,
-				189CBD6421192EAF000E6E3F /* DwTableView.h */,
-				189CBD6521192EAF000E6E3F /* DwTableViewModel.h */,
 				189CBD6621192EAF000E6E3F /* DwTableViewCell.h */,
+				189CBD6321192EAF000E6E3F /* DwTableViewCell.m */,
+				189CBD6521192EAF000E6E3F /* DwTableViewModel.h */,
+				189CBD6221192EAF000E6E3F /* DwTableViewModel.m */,
+				189CBD6421192EAF000E6E3F /* DwTableView.h */,
 				189CBD6721192EAF000E6E3F /* DwTableView.m */,
 			);
 			path = DWTableView;
@@ -275,10 +278,10 @@
 		189CBD6821192EAF000E6E3F /* DWSearchBarView */ = {
 			isa = PBXGroup;
 			children = (
-				189CBD6921192EAF000E6E3F /* MyUserDefaultsManager.m */,
 				189CBD6A21192EAF000E6E3F /* DWSearchBarView.h */,
 				189CBD6B21192EAF000E6E3F /* DWSearchBarView.m */,
 				189CBD6C21192EAF000E6E3F /* MyUserDefaultsManager.h */,
+				189CBD6921192EAF000E6E3F /* MyUserDefaultsManager.m */,
 			);
 			path = DWSearchBarView;
 			sourceTree = "<group>";
@@ -537,6 +540,8 @@
 				189CBDF721192EBB000E6E3F /* InformationModel.m */,
 				189CBDFC21192EBB000E6E3F /* InformationCell.h */,
 				189CBDF621192EBB000E6E3F /* InformationCell.m */,
+				189CBE07211938ED000E6E3F /* KxformationCell.h */,
+				189CBE08211938ED000E6E3F /* KxformationCell.m */,
 				189CBDFD21192EBB000E6E3F /* InformationView.h */,
 				189CBDF821192EBB000E6E3F /* InformationView.m */,
 			);
@@ -695,6 +700,7 @@
 				189CBE0421192EBB000E6E3F /* InformationModel.m in Sources */,
 				189CBDC521192EAF000E6E3F /* DwTableViewCell.m in Sources */,
 				189CBDDC21192EAF000E6E3F /* MYRuntime.m in Sources */,
+				189CBE09211938ED000E6E3F /* KxformationCell.m in Sources */,
 				189CBDCB21192EAF000E6E3F /* MyActivityIndicatorView.m in Sources */,
 				189CBDFF21192EBB000E6E3F /* BaseBodyVC.m in Sources */,
 				189CBDE421192EAF000E6E3F /* JNHelp.m in Sources */,

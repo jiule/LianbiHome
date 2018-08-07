@@ -41,6 +41,38 @@
 
 @property(nonatomic,copy)NSString * thumbnail;
 
-//@property(nonatomic,copy)NSString * template1;
+@end
 
+@interface  KxformationModel : DwTableViewModel
+
+@property(nonatomic,copy)NSString * kx_timer;
+
+@property(nonatomic,retain)NSMutableArray * dataArrays;
+@end
+
+@interface  KxModel : BaseModel
+
+@property(nonatomic,copy)NSString * bad_add;
+
+@property(nonatomic,copy)NSString * bad_vote;
+
+@property(nonatomic,copy)NSString * bull_add;
+
+@property(nonatomic,copy)NSString * bull_vote;
+
+@property(nonatomic,copy)NSString * content;
+
+@property(nonatomic,copy)NSString * evaluate;
+
+@property(nonatomic,copy)NSString * kx_id;
+
+@property(nonatomic,copy)NSString * issue_time;
+
+@property(nonatomic,copy)NSString * newsflash_id;
+
+@property(nonatomic,copy)NSString * pic_build;
+
+@property(nonatomic,copy)NSString * source;
+
+@property(nonatomic,copy)NSString * title;
 @end

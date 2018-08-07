@@ -115,14 +115,17 @@
                 }
             }];
         }
-        self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-            self->_page ++;
-            [self->_tableView.mj_footer endRefreshing];
-            if ([self->_delegate respondsToSelector:@selector(DwtableView:refresh:)]) {
-                [self->_delegate DwtableView:self refresh:self->_page];
-            }
-         //  [_tableView.mj_footer endRefreshingWithNoMoreData];
-        }];
+        if (_is_down1) {
+            self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+                self->_page ++;
+                [self->_tableView.mj_footer endRefreshing];
+                if ([self->_delegate respondsToSelector:@selector(DwtableView:refresh:)]) {
+                    [self->_delegate DwtableView:self refresh:self->_page];
+                }
+                //  [_tableView.mj_footer endRefreshingWithNoMoreData];
+            }];
+        }
+
     }else {
         self.tableView.mj_header = nil ;
         self.tableView.mj_footer = nil ;
@@ -137,8 +140,8 @@
         if([self->_delegate respondsToSelector:@selector(DwtableView:downDatasWithDict:index:)])        {
             [self->_delegate DwtableView:self downDatasWithDict:responseDict index:index];
         }
-        if (_is_arrayDatas) {
-
+        if (self->_is_arrayDatas) {
+           // [self arrayDatasDict:responseDict index:index];
         }else {
              [self responseDict:responseDict index:index];
         }
@@ -190,7 +193,36 @@
     }
 }
 
+-(void)arrayDatasDict:(NSDictionary *)dict index:(int)index
+{
 
+//    if (self.page <= 1) {
+//        [self.dataArrays removeAllObjects];
+//    }
+//    Class cls = NSClassFromString(_modelName);
+//    NSDictionary   * dict1 =  [dict objectForKey:_data];
+//    for (NSString * timer in dict1.allKeys) {
+//        NSArray * dataArray = dict1[timer];
+//        for (int i = 0 ; i < dataArray.count; i++) {
+//            DwTableViewModel  * model2342 = [[cls alloc]initWithDict:dataArray[i]];
+//            for (int j = 0 ; j < self.dataArrays.count; j++) {
+//                DwTableViewModel * arrayModel = self.dataArrays[j];
+//                if ([arrayModel.kx_timer isEqualToString:timer]) {
+//                    [arrayModel.dataArrays addObject:model2342];
+//                }else if(j == self.dataArrays.count - 1)
+//                {
+//                    DwTableViewModel * tianModel = [[DwTableViewModel alloc]init];
+//                    tianModel.kx_timer = timer;
+//                    tianModel.dataArrays = [NSMutableArray array];
+//                    [tianModel.dataArrays addObject:model2342];
+//                    [self.dataArrays   addObject:tianModel];
+//                    j = j +2;
+//                }
+//            }
+//        }
+//    }
+
+}
 
 
 #pragma mark----设置tableview 的tableHeaderView
