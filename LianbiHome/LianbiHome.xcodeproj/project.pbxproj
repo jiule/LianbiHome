@@ -60,6 +60,9 @@
 		189CBE0321192EBB000E6E3F /* InformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 189CBDF621192EBB000E6E3F /* InformationCell.m */; };
 		189CBE0421192EBB000E6E3F /* InformationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 189CBDF721192EBB000E6E3F /* InformationModel.m */; };
 		189CBE0521192EBB000E6E3F /* InformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 189CBDF821192EBB000E6E3F /* InformationView.m */; };
+		8426BA1021193EB70027BD6B /* UIKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426BA0E21193EB70027BD6B /* UIKitAdditions.m */; };
+		8426BA1321193F310027BD6B /* GeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426BA1221193F310027BD6B /* GeneralViewController.m */; };
+		8426BA16211941CA0027BD6B /* DetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426BA15211941CA0027BD6B /* DetailVC.m */; };
 		E4C51B0005518505A67E9AC8 /* libPods-LianbiHome.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89A4A02FD89C9D5F40F65B71 /* libPods-LianbiHome.a */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +180,12 @@
 		189CBDFD21192EBB000E6E3F /* InformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationView.h; sourceTree = "<group>"; };
 		1947087169B3E225A2BE41D1 /* Pods-LianbiHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LianbiHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LianbiHome/Pods-LianbiHome.debug.xcconfig"; sourceTree = "<group>"; };
 		7B0B4F4A92533574FFEA3C84 /* Pods-LianbiHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LianbiHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-LianbiHome/Pods-LianbiHome.release.xcconfig"; sourceTree = "<group>"; };
+		8426BA0D21193EB70027BD6B /* UIKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIKitAdditions.h; sourceTree = "<group>"; };
+		8426BA0E21193EB70027BD6B /* UIKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIKitAdditions.m; sourceTree = "<group>"; };
+		8426BA1121193F310027BD6B /* GeneralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralViewController.h; sourceTree = "<group>"; };
+		8426BA1221193F310027BD6B /* GeneralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralViewController.m; sourceTree = "<group>"; };
+		8426BA14211941CA0027BD6B /* DetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailVC.h; sourceTree = "<group>"; };
+		8426BA15211941CA0027BD6B /* DetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailVC.m; sourceTree = "<group>"; };
 		89A4A02FD89C9D5F40F65B71 /* libPods-LianbiHome.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LianbiHome.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -199,6 +208,9 @@
 				189CBD5621192EAF000E6E3F /* 管理器 */,
 				189CBD6021192EAF000E6E3F /* i 定义 */,
 				189CBD8321192EAF000E6E3F /* JNHelp */,
+				8426BA0921193EAA0027BD6B /* ldd */,
+				8426BA1121193F310027BD6B /* GeneralViewController.h */,
+				8426BA1221193F310027BD6B /* GeneralViewController.m */,
 				189CBDE721192EBB000E6E3F /* ViewController */,
 				189CBDF321192EBB000E6E3F /* ViewControllers */,
 				189CBD3F21192E15000E6E3F /* LianbiHome */,
@@ -341,11 +353,9 @@
 				189CBD8A21192EAF000E6E3F /* ui */,
 				189CBD9B21192EAF000E6E3F /* 文件路径管理 */,
 				189CBD9F21192EAF000E6E3F /* 键盘 */,
-				189CBDA221192EAF000E6E3F /* 指纹解锁 */,
 				189CBDA321192EAF000E6E3F /* runtime */,
 				189CBDA621192EAF000E6E3F /* Permissions */,
 				189CBDA921192EAF000E6E3F /* Helpr */,
-				189CBDAC21192EAF000E6E3F /* 视频 */,
 				189CBDAD21192EAF000E6E3F /* 系统类别 */,
 				189CBDB921192EAF000E6E3F /* baseModel */,
 				189CBDBD21192EAF000E6E3F /* 加密方法 */,
@@ -405,13 +415,6 @@
 			path = "键盘";
 			sourceTree = "<group>";
 		};
-		189CBDA221192EAF000E6E3F /* 指纹解锁 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "指纹解锁";
-			sourceTree = "<group>";
-		};
 		189CBDA321192EAF000E6E3F /* runtime */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,13 +440,6 @@
 				189CBDAB21192EAF000E6E3F /* Helpr.m */,
 			);
 			path = Helpr;
-			sourceTree = "<group>";
-		};
-		189CBDAC21192EAF000E6E3F /* 视频 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "视频";
 			sourceTree = "<group>";
 		};
 		189CBDAD21192EAF000E6E3F /* 系统类别 */ = {
@@ -484,18 +480,10 @@
 		189CBDE721192EBB000E6E3F /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				189CBDE821192EBB000E6E3F /* 客服 */,
 				189CBDE921192EBB000E6E3F /* 控制器 */,
 				189CBDEE21192EBB000E6E3F /* 自定义导航栏view */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		189CBDE821192EBB000E6E3F /* 客服 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "客服";
 			sourceTree = "<group>";
 		};
 		189CBDE921192EBB000E6E3F /* 控制器 */ = {
@@ -524,6 +512,8 @@
 			isa = PBXGroup;
 			children = (
 				189CBDF421192EBB000E6E3F /* information */,
+				8426BA14211941CA0027BD6B /* DetailVC.h */,
+				8426BA15211941CA0027BD6B /* DetailVC.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -558,6 +548,23 @@
 				89A4A02FD89C9D5F40F65B71 /* libPods-LianbiHome.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8426BA0921193EAA0027BD6B /* ldd */ = {
+			isa = PBXGroup;
+			children = (
+				8426BA0A21193EB70027BD6B /* UIKit */,
+			);
+			path = ldd;
+			sourceTree = "<group>";
+		};
+		8426BA0A21193EB70027BD6B /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				8426BA0D21193EB70027BD6B /* UIKitAdditions.h */,
+				8426BA0E21193EB70027BD6B /* UIKitAdditions.m */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -671,6 +678,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8426BA1021193EB70027BD6B /* UIKitAdditions.m in Sources */,
 				189CBDDB21192EAF000E6E3F /* Listeningkeyboard.m in Sources */,
 				189CBDD521192EAF000E6E3F /* UIButton+Help.m in Sources */,
 				189CBDD321192EAF000E6E3F /* UITextField+Help.m in Sources */,
@@ -678,6 +686,7 @@
 				189CBDC621192EAF000E6E3F /* DwTableView.m in Sources */,
 				189CBDD421192EAF000E6E3F /* UIScrollView+Help.m in Sources */,
 				189CBDC821192EAF000E6E3F /* DWSearchBarView.m in Sources */,
+				8426BA16211941CA0027BD6B /* DetailVC.m in Sources */,
 				189CBE0521192EBB000E6E3F /* InformationView.m in Sources */,
 				189CBDC121192EAF000E6E3F /* MYXML.m in Sources */,
 				189CBDC221192EAF000E6E3F /* MyNetworkingManager.m in Sources */,
@@ -697,6 +706,7 @@
 				189CBDDC21192EAF000E6E3F /* MYRuntime.m in Sources */,
 				189CBDCB21192EAF000E6E3F /* MyActivityIndicatorView.m in Sources */,
 				189CBDFF21192EBB000E6E3F /* BaseBodyVC.m in Sources */,
+				8426BA1321193F310027BD6B /* GeneralViewController.m in Sources */,
 				189CBDE421192EAF000E6E3F /* JNHelp.m in Sources */,
 				189CBDDD21192EAF000E6E3F /* Permissions.m in Sources */,
 				189CBDD721192EAF000E6E3F /* UILabel+JNHelp.m in Sources */,

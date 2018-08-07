@@ -33,7 +33,7 @@
 @property(nonatomic,copy)NSString * post_title;
 
 @property(nonatomic,copy)NSString * published_time;
-
+@property(nonatomic,copy)NSString * post_content;
 @end
 
 @interface InformationImageModel : DwTableViewModel
