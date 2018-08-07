@@ -11,6 +11,7 @@
 @interface InformationView()
 {
     UIButton * _selBtn;
+    UIView * _xianView;
 }
 @end
 
@@ -36,6 +37,8 @@
         [btn setTitleColor:SXRGB16Color(0x7584a0) forState:0];
         [btn setTitleColor:SXRGB16Color(0x000000) forState:UIControlStateSelected];
         if (i == 0) {
+            _xianView = JnUIView(CGRectMake(SCREEN_WIDTH * 0.5 - JN_HH(58), self.height - JN_HH(10), JN_HH(16), 2), COLOR_RED);
+            [self addSubview:_xianView];
             btn.selected = YES;
             _selBtn = btn;
         }
@@ -57,25 +60,37 @@
     if ([_delegate respondsToSelector:@selector(InformationView:index:)]) {
         [_delegate InformationView:self index:(int)_selBtn.tag - 100];
     }
+     [self loadXian];
 }
 
 -(void)showWithLeftBtn:(BOOL)left
 {
     if (left) {
-        if (_selBtn.tag == 100) {
+        if (_selBtn.tag == 101) {
             return ;
         }
         _selBtn.selected = NO;
         _selBtn = [self viewWithTag:101];
         _selBtn.selected = YES;
+
     }else {
-        if (_selBtn.tag == 101) {
+        if (_selBtn.tag == 100) {
             return ;
         }
         _selBtn.selected = NO;
         _selBtn = [self viewWithTag:100];
         _selBtn.selected = YES;
     }
-
+    [self loadXian];
 }
+
+-(void)loadXian
+{
+    if (_selBtn.tag == 100) {
+        [_xianView setX:SCREEN_WIDTH * 0.5 - JN_HH(58)];
+    }else {
+     [_xianView setX:SCREEN_WIDTH * 0.5 + JN_HH(42)];
+    }
+}
+
 @end

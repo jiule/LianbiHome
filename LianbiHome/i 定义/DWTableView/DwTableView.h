@@ -61,6 +61,8 @@
 
 @property(nonatomic,assign)BOOL is_up;  //是否支持上拉刷新
 
+@property(nonatomic,assign)BOOL is_down1;  //是否支持上拉刷新
+
 -(void)ceshiArrays:(NSArray *)arrayDatas;
 
 @property(nonatomic,assign)BOOL is_arrayDatas;
