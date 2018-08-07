@@ -1,0 +1,99 @@
+//
+//  Home.pch
+//  LianbiHome
+//
+//  Created by Apple on 2018/8/6.
+//  Copyright © 2018年 LianbiHome. All rights reserved.
+//
+
+#ifndef Home_pch
+#define Home_pch
+
+#import <objc/message.h>
+#import "JNViewHelp.h"
+#import "Listeningkeyboard.h"
+#import "MyUserDefaultsManager.h"
+#import "MyNetworking.h"
+#import "Permissions.h"
+#import "Masonry.h"
+#import "MYAlertController.h"
+#import "MyActivityIndicatorViewManager.h"
+
+//-------------------------------------------------------------------------------------------------------
+//------------------------------------测试 生产环境配置-------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------------
+//------------------------------------判断手机版本号----------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+
+#define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+#define iOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
+#define iOS9 ([[UIDevice currentDevice].systemVersion doubleValue] >= 9.0)
+#define iOS10 ([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0)
+#define IOS(H) ([[UIDevice currentDevice].systemVersion doubleValue] >= H)
+
+//-------------------------------------------------------------------------------------------------------
+//------------------------------------判断手机型号----------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+
+//判断是否是iPhone4
+#define isIPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
+//判断是否是iPhone5
+#define isIPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+//是否iPhone6
+#define isIPhone6  ([UIScreen instancesRespondToSelector:@selector(nativeBounds)] ? CGSizeEqualToSize(CGSizeMake(375.00 * 2, 667.00 * 2),[[UIScreen mainScreen] nativeBounds].size) : NO)
+//是否iPhone6plus
+#define isIPhone6plus ([UIScreen instancesRespondToSelector:@selector(nativeBounds)] ? CGSizeEqualToSize(CGSizeMake(414.000000 * 3, 736.000000 * 3),[[UIScreen mainScreen] currentMode].size) : NO)
+//是否iPhoneX
+#define isIPhoneX ([UIScreen instancesRespondToSelector:@selector(nativeBounds)] ? CGSizeEqualToSize(CGSizeMake(1125.000 , 2436.000),[[UIScreen mainScreen] currentMode].size) : NO)
+//进入新视图
+#define TUICHU_XINSHITU(NAV) [self.navigationController pushViewController:NAV animated:YES]
+//返回上一个视图
+#define FANHUI_JIUSHITU  [self.navigationController popViewControllerAnimated:YES]
+
+//-------------------------------------------------------------------------------------------------------
+//------------------------------------特殊符号----------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------
+
+//获取temp
+#define kPathTemp  NSTemporaryDirectory()
+//获取沙盒 Document
+#define kPathDocument [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
+//获取沙盒 Cache
+#define kPathCache [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]
+//获取通知中心
+#define JNNotificationCenter [NSNotificationCenter defaultCenter]
+//强弱 引用
+#define JNWeakSelf(type)  __weak typeof(type) weak##type = type;
+#define JNStrongSelf(type)  __strong typeof(type) type = weak##type;
+
+#if TARGET_OS_IPHONE
+//iPhone Device
+#endif
+#if TARGET_IPHONE_SIMULATOR
+//iPhone Simulator
+#endif
+
+//GCD - 一次性执行
+#define kDISPATCH_ONCE_BLOCK(onceBlock) static dispatch_once_t onceToken; dispatch_once(&onceToken, onceBlock);
+//GCD - 在Main线程上运行
+#define kDISPATCH_MAIN_THREAD(mainQueueBlock) dispatch_async(dispatch_get_main_queue(), mainQueueBlock);
+//GCD - 开启异步线程
+#define kDISPATCH_GLOBAL_QUEUE_DEFAULT(globalQueueBlock) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), globalQueueBlocl);
+
+#ifdef DEBUG // 调试状态 打开LOG功能
+#define MyLog(...) NSLog(__VA_ARGS__)
+// #define URLIP @"http://1.ximei999.com/"
+#define URLIP @"http://api.lianbihome.net/api/?s="
+// #define URLIP @"http://pay.ebogame.com/api/"
+#define TUPIANURL(STR) [NSString stringWithFormat:@"http://api.lianbihome.net/upload/%@",STR]
+#else // 发布状态, 关闭LOG功能
+#define MyLog(...)
+#define URLIP @"http://api.lianbihome.net/api/?s="
+#define TUPIANURL(STR) [NSString stringWithFormat:@"http://api.lianbihome.net/upload/%@",STR]
+#endif
+
+#define URL(STR)  [NSString stringWithFormat:@"%@%@",URLIP,STR]
+
+#endif /* Home_pch */
