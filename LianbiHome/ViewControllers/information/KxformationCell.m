@@ -74,7 +74,13 @@
     [[_likongBtn titleLabel] setFont:[UIFont systemFontOfSize:JN_HH(13.5)]];
     [_downView addSubview:_likongBtn];
 
-    [_downView addSubview: JnButtonImageTag(CGRectMake(_downView.width - JN_HH(44), JN_HH(10) , JN_HH(20), JN_HH(20)), MYimageNamed(@"03_tab_share"), self, @selector(BtnClick:), 102)];
+    _fenxiangBtn = JnButton_tag(CGRectMake(_downView.width - JN_HH(70), 0, JN_HH(70), JN_HH(40)), COLOR_WHITE, self, @selector(BtnClick:), 102);
+    [_fenxiangBtn setImage:MYimageNamed(@"03_tab_share") forState:0];
+    [_fenxiangBtn setTitle:@"分享" forState:0];
+    [_fenxiangBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, JN_HH(55))];
+    [_fenxiangBtn setTitleColor:COLOR_B1 forState:0];
+    [[_fenxiangBtn titleLabel] setFont:[UIFont systemFontOfSize:JN_HH(13.5)]];
+    [_downView addSubview:_fenxiangBtn];
 }
 
 -(void)setTableViewModel:(DwTableViewModel *)tableViewModel
