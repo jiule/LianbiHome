@@ -12,6 +12,7 @@
 #import "InformationView.h"
 #import "DwTableView.h"
 #import "InformationModel.h"
+#import "DetailVC.h"
 
 
 
@@ -367,5 +368,16 @@
 {
     [self tableViewDownWithPage:page];
 }
+-(void)DwtableView:(DwTableView *)tableView model:(DwTableViewModel *)myTableViewModel indexPath:(NSIndexPath *)indexPath
+{
+    if (_index == 1) {
+        InformationModel * model = (InformationModel *)myTableViewModel;
+        DetailVC *vc = [[DetailVC alloc]init];
+        vc.Id = model.information_id;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+
 
 @end

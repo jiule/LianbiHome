@@ -9,6 +9,8 @@
 #import "DetailVC.h"
 #import "InformationModel.h"
 
+#include <ctype.h>
+
 @interface DetailVC ()<UIWebViewDelegate>
 XH_ATTRIBUTE(strong, InformationModel, model);
 XH_ATTRIBUTE(strong, UILabel, titleLb);
@@ -22,6 +24,7 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
 -(UIWebView *)webV{
     if (!_webV) {
         _webV = [[UIWebView alloc] init];
+        _webV.userInteractionEnabled = NO;
         _webV.delegate = self;
     }
     return _webV;
@@ -47,15 +50,22 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
         [self setMiddleTitle:self.model.post_title];
         self.titleLb.text = self.model.post_title;
         self.timeLb.text = [self computeTime:self.model.published_time];
-        self.readNumLb.text = [NSString stringWithFormat:@"%@阅读数",self.model.post_hits];
+        self.readNumLb.text = [NSString stringWithFormat:@"阅读%@",self.model.post_hits];
+        
+//        NSData * data  = [self.model.post_content dataUsingEncoding:NSUTF8StringEncoding];
         [self.webV loadHTMLString:self.model.post_content baseURL:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
 }
 -(void)creatNav{
+    LeftButtonItem * left = [[LeftButtonItem alloc] initWithNormalImg:@"back" selectedImg:nil target:self action:@selector(back)];
+    [self.naviView addSubview:left];
     RightButtonItem * right = [[RightButtonItem alloc] initWithNormalImg:@"03_tab_share" selectedImg:nil target:self action:@selector(share)];
     [self.naviView addSubview:right];
+}
+-(void)back{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)creatUI{
     UIScrollView * scl = [UIScrollView new];
@@ -97,23 +107,33 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
         make.left.centerX.equalTo(self.titleLb);
     }];
     UILabel * lab = [UIKitAdditions labelWithText:@"来源：链币Home\n未经允许请勿转载" textColor:[UIColor grayColor] alignment:0 fontSize:14];
+    lab.numberOfLines = 0;
     [containView addSubview:lab];
     [lab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.webV.mas_bottom).offset(JN_HH(30));
         make.left.centerX.equalTo(self.webV);
     }];
+    UILabel * lab1 = [UIKitAdditions labelWithBlackText:@"关注【链币Home】" fontSize:14];
+    [containView addSubview:lab1];
+    [lab1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(containView);
+        make.top.equalTo(lab.mas_bottom).offset(JN_HH(40));
+    }];
     UIImageView * imav = [UIKitAdditions imageViewWithImageName:@"03_news_img"];
     [containView addSubview:imav];
     [imav mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(containView);
-        make.top.equalTo(lab.mas_bottom).offset(JN_HH(40));
+        make.top.equalTo(lab1.mas_bottom).offset(JN_HH(10));
+    }];
+    [containView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(imav.mas_bottom).offset(JN_HH(30));
     }];
 }
 -(NSString *)computeTime:(NSString *)time{
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
-    NSDate * date1 = [formatter dateFromString:time];
+    NSDate * date1 = [NSDate dateWithTimeIntervalSince1970:[time intValue]];
     NSDate * date2 = [NSDate date];
     
     NSTimeInterval aTimer = [date2 timeIntervalSinceDate:date1];
@@ -122,6 +142,9 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
     int second = aTimer - hour*3600 - minute*60;
     NSString *dural = [NSString stringWithFormat:@"%d时%d分%d秒", hour, minute,second];
     if (hour) {
+        if (hour / 24) {
+            return [NSString stringWithFormat:@"%d天前",hour/24];
+        }
         return [NSString stringWithFormat:@"%d小时前",hour];
     }
     if (minute) {
@@ -137,7 +160,6 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
     [self.webV mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(height + 20);
     }];
-    NSLog(@"height: %.2f", height);
 }
 #pragma mark 分享点击了
 -(void)share{

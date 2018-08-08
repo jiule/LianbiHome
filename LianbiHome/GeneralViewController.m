@@ -36,7 +36,7 @@
     //导航栏
     _naviView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, CGNavView_h())];
 //    [self setNaviBarBgImage:@"common/bar/Header"];
-    _naviView.backgroundColor = [UIColor grayColor];
+    _naviView.backgroundColor = [UIColor whiteColor];
     
     //主体视图
     _bodyView = [[UIView alloc]initWithFrame:CGRectMake(0, CGNavView_h(), SCREEN_WIDTH, [self bodyHeigh])];
@@ -64,7 +64,7 @@
     }
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, CGNavView_h() -CGNavView_20h())];
     label.font = [UIFont systemFontOfSize:20];
-    label.textColor = [UIColor whiteColor];
+    label.textColor = [UIColor blackColor];
     label.textAlignment = NSTextAlignmentCenter;
     label.center = CGPointMake(SCREEN_WIDTH/2, CGNavView_h()/2+10);
     label.text = title;
