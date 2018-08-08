@@ -44,7 +44,6 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
     [MyNetworkingManager  DDPOSTResqust:@"home/Information/detail" withparameters:@{@"id":self.Id} withVC:self progress:^(NSProgress * _Nonnull progre) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@",responseObject);
         NSArray * arr = (NSArray *)responseObject;
         NSDictionary * dic = arr.firstObject;
         self.model = [[InformationModel alloc] initWithDict:dic];
