@@ -71,7 +71,6 @@
         _imageView.frame = CGRectMake(JN_HH(15), JN_HH(60), SCREEN_WIDTH - JN_HH(30), SCREEN_WIDTH  * 0.5- JN_HH(15));
         [self createcell_h:JN_HH(240) BgColor:COLOR_B5 xian_h:1];
     }
-
 }
 
 -(NSString *)tiemrWithpublished:(NSString *)published
