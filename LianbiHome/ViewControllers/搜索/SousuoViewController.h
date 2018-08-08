@@ -10,6 +10,6 @@
 
 @interface SousuoViewController : BaseViewController
 
--(instancetype)initWithNavTitle:(NSString *)str text:(NSString *)text;
+-(instancetype)initWithNavTitle:(NSString *)str text:(NSString *)tex;
 
 @end

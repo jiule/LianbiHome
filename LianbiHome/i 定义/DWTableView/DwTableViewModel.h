@@ -13,7 +13,7 @@
 //默认高度 40
 @property(nonatomic,assign)float cell_h;
 
-@property(nonatomic,assign)int cell_id;
+@property(nonatomic,assign)NSInteger cell_id;
 
 
 
