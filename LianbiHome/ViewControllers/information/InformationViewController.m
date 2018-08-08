@@ -16,7 +16,7 @@
 #import "KXTableView.h"
 #import "DetailVC.h"
 #import "SousuoViewController.h"
-
+#import "KxformationCell.h"
 
 
 @interface InformationViewController () <DWSearchBarViewDelegate,UIScrollViewDelegate,DwTableViewDelegate,DwTableViewCellDelegate,InformationViewDelegate>
@@ -58,6 +58,7 @@
 -(void)createNavView
 {
     [super createNavView];
+
     self.navView.backgroundColor = SXRGB16Color(0xff7147);
     UIView * bgView = JnUIView(CGRectMake(100, CGNavView_20h() + 5, SCREEN_WIDTH - 120, 34), COLOR_W(0.7));
     JNViewStyle(bgView, 17, nil, 0);
@@ -90,13 +91,14 @@
     _page1 = 1;
     _page2 = 1;
     _index = 1;
-    UIScrollView * scrollView = JnScrollView(CGRectMake(0, self.nav_h, SCREEN_WIDTH, SCREEN_HEIGHT - self.nav_h), COLOR_WHITE);
+    UIScrollView * scrollView = JnScrollView(CGRectMake(0, self.nav_h, self.view.width, SCREEN_HEIGHT - self.nav_h), COLOR_WHITE);
     //  scrollView.delegate = self;
     [self.view addSubview:scrollView];
     self.downScrollView = scrollView;
 
     UIView * hearView = JnUIView(CGRectMake(0, 0, SCREEN_WIDTH, JN_HH(170) + JN_HH(50)), COLOR_B5);
-    _ffilingView = [[ShufflingView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, JN_HH(170)) BgColor:COLOR_WHITE];
+    _ffilingView = [[ShufflingView alloc]initWithFrame:CGRectMake(0, 0, scrollView.width, JN_HH(170)) BgColor:COLOR_WHITE];
+
     [hearView addSubview:_ffilingView];
 
     InformationView * inforMarinView = [[InformationView alloc]initWithFrame:CGRectMake(0, JN_HH(170), SCREEN_WIDTH, JN_HH(50))];
@@ -108,6 +110,7 @@
     [self.downScrollView addSubview:hearView];
 
     UIView * downView1 = JnUIView(CGRectMake(0, hearView.height, SCREEN_WIDTH * 2, SCREEN_HEIGHT - self.nav_h - JN_HH(60)), COLOR_BLACK);
+    NSLog(@"%f",downView1.width);
     [self.downScrollView addSubview:downView1];
 
     [downView1 addpanGestureTecognizer:^(UIView * _Nonnull view, UIGestureRecognizer * _Nonnull tap) {
@@ -278,7 +281,7 @@
                 [ffilingArray addObject:TUPIANURL(arrayDict[@"image"])];
             }
             [_ffilingView showWithImageUrlPaths:ffilingArray didShuffling:^(ShufflingView *shufflingView, int index) {
-
+                NSLog(@"%f",shufflingView.width);
             }];
         }
         [Helpr dispatch_queue_t_timer:2 send:^{
@@ -340,7 +343,11 @@
         KxModel * model = (KxModel * )myTableViewModel;
         model.is_down = !model.is_down;
         KXTableView * table = (KXTableView *)tableView;
-        [table.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        if (model.is_down) {
+             [table.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }else {
+            [table.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
     }
 }
 
@@ -350,12 +357,18 @@
 {
     NSArray * array = @[@"bull_vote",@"bad_vote"];
     KxModel * model = (KxModel *)MyModel;
+    KxformationCell * cell = (KxformationCell *)Mycell;
 
-    [MyNetworkingManager POST:@"home/Information/evaluate" parameters:@{@"sign":array[btn.tag -100],@"newsflash_id":model.newsflash_id}  progress:^(NSProgress * _Nonnull progress) {
+    [MyNetworkingManager POST:@"home/Information/evaluate" parameters:@{@"sign":array[btn.tag -100],@"id":model.kx_id}  progress:^(NSProgress * _Nonnull progress) {
 
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-             id responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        NSLog(@"%@",responseDict[@"msg"]);
+        id responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary * dict  = responseDict[@"data"];
+        model.bad_vote = [NSString stringWithFormat:@"%@",dict[@"bad_vote"]];
+        model.bull_vote = [NSString stringWithFormat:@"%@",dict[@"bull_vote"]];
+        model.evaluate = array[btn.tag -100];
+        cell.tableViewModel = model;
+
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
     }];

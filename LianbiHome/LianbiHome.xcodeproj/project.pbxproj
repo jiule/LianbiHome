@@ -63,6 +63,7 @@
 		18A4D67D211A878000C938C5 /* KxformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A4D67A211A877F00C938C5 /* KxformationCell.m */; };
 		18A4D67E211A878000C938C5 /* KXTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A4D67B211A878000C938C5 /* KXTableView.m */; };
 		18A4D682211A905200C938C5 /* SousuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A4D681211A905200C938C5 /* SousuoViewController.m */; };
+		18A4D687211A98E800C938C5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18A4D686211A98E800C938C5 /* Images.xcassets */; };
 		8426BA1021193EB70027BD6B /* UIKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426BA0E21193EB70027BD6B /* UIKitAdditions.m */; };
 		8426BA1321193F310027BD6B /* GeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426BA1221193F310027BD6B /* GeneralViewController.m */; };
 		8426BA16211941CA0027BD6B /* DetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426BA15211941CA0027BD6B /* DetailVC.m */; };
@@ -187,6 +188,7 @@
 		18A4D67C211A878000C938C5 /* KXTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KXTableView.h; sourceTree = "<group>"; };
 		18A4D680211A905200C938C5 /* SousuoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SousuoViewController.h; sourceTree = "<group>"; };
 		18A4D681211A905200C938C5 /* SousuoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SousuoViewController.m; sourceTree = "<group>"; };
+		18A4D686211A98E800C938C5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1947087169B3E225A2BE41D1 /* Pods-LianbiHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LianbiHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LianbiHome/Pods-LianbiHome.debug.xcconfig"; sourceTree = "<group>"; };
 		7B0B4F4A92533574FFEA3C84 /* Pods-LianbiHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LianbiHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-LianbiHome/Pods-LianbiHome.release.xcconfig"; sourceTree = "<group>"; };
 		8426BA0D21193EB70027BD6B /* UIKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIKitAdditions.h; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				189CBD4B21192E17000E6E3F /* LaunchScreen.storyboard */,
 				189CBD4E21192E17000E6E3F /* Info.plist */,
 				189CBD4F21192E17000E6E3F /* main.m */,
+				18A4D686211A98E800C938C5 /* Images.xcassets */,
 			);
 			path = LianbiHome;
 			sourceTree = "<group>";
@@ -650,6 +653,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				189CBD4D21192E17000E6E3F /* LaunchScreen.storyboard in Resources */,
+				18A4D687211A98E800C938C5 /* Images.xcassets in Resources */,
 				189CBD4A21192E17000E6E3F /* Assets.xcassets in Resources */,
 				189CBD4821192E15000E6E3F /* Main.storyboard in Resources */,
 			);
@@ -901,13 +905,14 @@
 				DEVELOPMENT_TEAM = 89V237G3A9;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JNHelp/Home.pch";
 				INFOPLIST_FILE = LianbiHome/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.lianbihome.www.LianbiHome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -920,13 +925,14 @@
 				DEVELOPMENT_TEAM = 89V237G3A9;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/JNHelp/Home.pch";
 				INFOPLIST_FILE = LianbiHome/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = net.lianbihome.www.LianbiHome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

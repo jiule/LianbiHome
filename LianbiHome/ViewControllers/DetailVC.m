@@ -25,6 +25,7 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
     if (!_webV) {
         _webV = [[UIWebView alloc] init];
         _webV.userInteractionEnabled = NO;
+        _webV.dataDetectorTypes = UIDataDetectorTypeAll;
         _webV.delegate = self;
     }
     return _webV;
@@ -51,9 +52,13 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
         self.titleLb.text = self.model.post_title;
         self.timeLb.text = [self computeTime:self.model.published_time];
         self.readNumLb.text = [NSString stringWithFormat:@"阅读%@",self.model.post_hits];
-        
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.lianbihome.net/portal/article/index/id/%@.html",self.Id]];
+      //  NSLog(@"%@",url);
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        [self.self.webV loadRequest:request];
+
 //        NSData * data  = [self.model.post_content dataUsingEncoding:NSUTF8StringEncoding];
-        [self.webV loadHTMLString:self.model.post_content baseURL:nil];
+ //       [self.webV loadHTMLString:self.model.post_content baseURL:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];

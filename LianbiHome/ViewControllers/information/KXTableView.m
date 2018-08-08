@@ -98,7 +98,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * view = JnUIView(CGRectMake(0, 0, SCREEN_WIDTH, JN_HH(40)), [UIColor groupTableViewBackgroundColor]);
-    UILabel * label = JnLabel(CGRectMake(JN_HH(20), JN_HH(5), SCREEN_WIDTH - JN_HH(40), JN_HH(20)), @"", JN_HH(14.5), COLOR_RED, 0);
+    UILabel * label = JnLabel(CGRectMake(JN_HH(20), JN_HH(5), SCREEN_WIDTH - JN_HH(40), JN_HH(20)), @"", JN_HH(14.5), SXRGB16Color(0xff7147), 0);
     if (self.hearArrays.count > section) {
             label.text = [self  readTimerWithStr:self.hearArrays[section]];
     }

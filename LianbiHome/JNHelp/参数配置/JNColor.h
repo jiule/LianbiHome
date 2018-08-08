@@ -20,7 +20,7 @@
 
 #define RGB_R(r,g,b) [UIColor colorWithRed:r/255.00 green:g/255.00 blue:b/255.00 alpha:1.0f]
 
-#define COLOR_A1 SXRGB16Color(0X539ccf)   //色调  蓝色  z1
+#define COLOR_A1 SXRGB16Color(0xff7147)   //色调  蓝色  z1
 #define COLOR_A2 SXRGB16Color(0X4d4d4d)   //色调  浅紫色  z2
 #define COLOR_A3 SXRGB16Color(0XEC4C37)   //色调   z3
 #define COLOR_A4 SXRGB16Color(0xbfbfca)   //色调   H1

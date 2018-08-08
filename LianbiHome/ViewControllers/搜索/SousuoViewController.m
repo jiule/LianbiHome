@@ -13,8 +13,6 @@
 #import "KXTableView.h"
 #import "DetailVC.h"
 
-
-
 @interface SousuoViewController ()<InformationViewDelegate,DwTableViewDelegate,DwTableViewCellDelegate>
 {
     NSString * _text;

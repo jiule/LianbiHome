@@ -83,7 +83,8 @@
 
 -(instancetype)initWithFrame:(CGRect)frame backImage:(nullable UIImage *)backImage Target:(nullable id)target action:(nullable SEL)action
 {
-    self = [super initWithFrame:frame];
+    self = [UIButton buttonWithType:0];
+    self.frame = frame;
     if (self) {
         [self setBackgroundImage:backImage forState:0];
         if (target && action) {
