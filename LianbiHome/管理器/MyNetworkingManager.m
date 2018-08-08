@@ -61,7 +61,7 @@ XMGSingletoM
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
+    NSLog(@"%@",parameters);
     return [manager POST:URL(URLString) parameters:[MyNetworkingHelp addSidWithDict:parameters] progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
      //    id responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         success(task,responseObject);

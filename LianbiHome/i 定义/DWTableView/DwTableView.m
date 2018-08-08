@@ -196,32 +196,6 @@
 -(void)arrayDatasDict:(NSDictionary *)dict index:(int)index
 {
 
-//    if (self.page <= 1) {
-//        [self.dataArrays removeAllObjects];
-//    }
-//    Class cls = NSClassFromString(_modelName);
-//    NSDictionary   * dict1 =  [dict objectForKey:_data];
-//    for (NSString * timer in dict1.allKeys) {
-//        NSArray * dataArray = dict1[timer];
-//        for (int i = 0 ; i < dataArray.count; i++) {
-//            DwTableViewModel  * model2342 = [[cls alloc]initWithDict:dataArray[i]];
-//            for (int j = 0 ; j < self.dataArrays.count; j++) {
-//                DwTableViewModel * arrayModel = self.dataArrays[j];
-//                if ([arrayModel.kx_timer isEqualToString:timer]) {
-//                    [arrayModel.dataArrays addObject:model2342];
-//                }else if(j == self.dataArrays.count - 1)
-//                {
-//                    DwTableViewModel * tianModel = [[DwTableViewModel alloc]init];
-//                    tianModel.kx_timer = timer;
-//                    tianModel.dataArrays = [NSMutableArray array];
-//                    [tianModel.dataArrays addObject:model2342];
-//                    [self.dataArrays   addObject:tianModel];
-//                    j = j +2;
-//                }
-//            }
-//        }
-//    }
-
 }
 
 
