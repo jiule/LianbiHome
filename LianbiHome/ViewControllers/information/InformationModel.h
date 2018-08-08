@@ -50,7 +50,9 @@
 @property(nonatomic,retain)NSMutableArray * dataArrays;
 @end
 
-@interface  KxModel : BaseModel
+@interface  KxModel : DwTableViewModel
+
+@property(nonatomic,assign)BOOL is_down;
 
 @property(nonatomic,copy)NSString * bad_add;
 

@@ -12,7 +12,10 @@
 #import "InformationView.h"
 #import "DwTableView.h"
 #import "InformationModel.h"
+
+#import "KXTableView.h"
 #import "DetailVC.h"
+#import "SousuoViewController.h"
 
 
 
@@ -30,8 +33,6 @@
     NSString * _post_id2;
 
     int _index;  //当前显示的 tableview
-
-
     int _is_left; //记录是左滑还是右滑动
 }
 
@@ -45,7 +46,9 @@
 
 @property(nonatomic,retain)DwTableView * tableView;
 
-@property(nonatomic,retain)DwTableView * tableView1;
+@property(nonatomic,retain)KXTableView * tableView1;
+
+
 
 @end
 
@@ -62,21 +65,21 @@
 
     [bgView addtapGestureRecognizer:^(UIView * _Nonnull view, UIGestureRecognizer * _Nonnull tap) {
         DWSearchBarView * view1 = [[DWSearchBarView alloc]initWithFrame:self.view.bounds];
-        view1.delegate = self ; 
+        view1.delegate = self ;
         [view1 showWithVc:self];
     }];
 
-//  UISearchBar * _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(10,CGNavView_20h() + 7, SCREEN_WIDTH - 80, 30)];
-//   // UIView * bgView = [[UIView alloc]initWithFrame:_searchBar];
-//   // bgView.backgroundColor = COLOR_W(0.7);
-//    [_searchBar addtapGestureRecognizer:^(UIView * _Nonnull view, UIGestureRecognizer * _Nonnull tap) {
-//        DWSearchBarView * view1 = [[DWSearchBarView alloc]initWithFrame:self.view.bounds];
-//        [view1 showWithVc:self];
-//    }];
-//    _searchBar.placeholder = @"搜索";
-//    _searchBar.delegate = self;
-//    //   _searchBar.barTintColor = COLOR_WHITE;
-//    [self.navView addSubview:_searchBar];
+    //  UISearchBar * _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(10,CGNavView_20h() + 7, SCREEN_WIDTH - 80, 30)];
+    //   // UIView * bgView = [[UIView alloc]initWithFrame:_searchBar];
+    //   // bgView.backgroundColor = COLOR_W(0.7);
+    //    [_searchBar addtapGestureRecognizer:^(UIView * _Nonnull view, UIGestureRecognizer * _Nonnull tap) {
+    //        DWSearchBarView * view1 = [[DWSearchBarView alloc]initWithFrame:self.view.bounds];
+    //        [view1 showWithVc:self];
+    //    }];
+    //    _searchBar.placeholder = @"搜索";
+    //    _searchBar.delegate = self;
+    //    //   _searchBar.barTintColor = COLOR_WHITE;
+    //    [self.navView addSubview:_searchBar];
 
 }
 
@@ -88,10 +91,9 @@
     _page2 = 1;
     _index = 1;
     UIScrollView * scrollView = JnScrollView(CGRectMake(0, self.nav_h, SCREEN_WIDTH, SCREEN_HEIGHT - self.nav_h), COLOR_WHITE);
-  //  scrollView.delegate = self;
+    //  scrollView.delegate = self;
     [self.view addSubview:scrollView];
     self.downScrollView = scrollView;
-
 
     UIView * hearView = JnUIView(CGRectMake(0, 0, SCREEN_WIDTH, JN_HH(170) + JN_HH(50)), COLOR_B5);
     _ffilingView = [[ShufflingView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, JN_HH(170)) BgColor:COLOR_WHITE];
@@ -109,7 +111,6 @@
     [self.downScrollView addSubview:downView1];
 
     [downView1 addpanGestureTecognizer:^(UIView * _Nonnull view, UIGestureRecognizer * _Nonnull tap) {
-
         UIPanGestureRecognizer * pan = (UIPanGestureRecognizer *)tap;
         CGPoint position = [pan translationInView:view];
         if (position.y > 10 && fabs(position.x) < 20 ) {
@@ -158,12 +159,12 @@
                 if (self->_is_left == 1) {
                     [UIView animateWithDuration:0.3 animations:^{
                         [view setX:-SCREEN_WIDTH];
-                         [self->_informationView showWithLeftBtn:YES];
+                        [self->_informationView showWithLeftBtn:YES];
                     }];
                 }else if(self->_is_left == 0){
                     [UIView animateWithDuration:0.3 animations:^{
                         [view setX:0];
-                         [self->_informationView showWithLeftBtn:NO];
+                        [self->_informationView showWithLeftBtn:NO];
                     }];
                 }else {
                     if ([view getX] >= -SCREEN_WIDTH / 2) {
@@ -181,9 +182,7 @@
                 }
             }
         }
-
     }];
-
     self.downView1 = downView1;
 
     self.tableView  = [DwTableView initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - self.nav_h - JN_HH(50)) url:URL(@"home/App/zx_list") modelName:@"InformationModel" cellName:@"InformationCell" delegate:self];
@@ -191,10 +190,10 @@
     self.tableView.is_up = NO;
     [downView1 addSubview:[self.tableView readTableView]];
 
-    self.tableView1  = [DwTableView initWithFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT - self.nav_h - JN_HH(50)) url:URL(@"home/Information/newsflash_list") modelName:@"KxformationModel" cellName:@"KxformationCell" delegate:self];
+    self.tableView1  = [KXTableView initWithFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT - self.nav_h - JN_HH(50)) url:URL(@"home/Information/newsflash_list") modelName:@"KxModel" cellName:@"KxformationCell" delegate:self];
     self.tableView1.is_up = NO;
     self.tableView1.is_arrayDatas = YES;
-    [downView1 addSubview:[self.tableView1 readTableView]];
+    [downView1 addSubview:self.tableView1.tableView];
 
     self.downScrollView.contentSize = CGSizeMake(0, hearView.height + downView1.height);
     self.downScrollView.bounces = NO;
@@ -230,10 +229,8 @@
                         [self tableViewDownWithPage:_page2];
                         _is_down2 = YES;
                     }
-
                 }
             }
-
         }
     }
     [self load];
@@ -287,59 +284,21 @@
         [Helpr dispatch_queue_t_timer:2 send:^{
             self->_is_down1 = NO;
         }];
-    }else {
-        if (index <= 1) {
-            [tableView.readArrays removeAllObjects];
-        }
-        NSDictionary   * dict1 =  [dict objectForKey:@"data"];
-        for (NSString * timer in dict1.allKeys) {
-            NSArray * dataArray = dict1[timer];
-            for (int i = 0 ; i < dataArray.count; i++) {
-                KxModel  * model2342 = [[KxModel alloc]initWithDict:dataArray[i]];
-                for (int j = 0 ; j < tableView.readArrays.count; j++) {
-                    KxformationModel * arrayModel = tableView.readArrays[j];
-                    if ([arrayModel.kx_timer isEqualToString:timer]) {
-                        [arrayModel.dataArrays addObject:model2342];
-                    }else if(j == tableView.readArrays.count - 1)
-                    {
-                      //  NSLog(@"111111111");
-                        KxformationModel * tianModel = [[KxformationModel alloc]init];
-                        tianModel.kx_timer = timer;
-                        [tianModel.dataArrays addObject:model2342];
-                        [tableView.readArrays addObject:tianModel];
-                        j = j +2;
-                    }
-                }
-                if (tableView.readArrays.count == 0) {
-                    KxformationModel * tianModel = [[KxformationModel alloc]init];
-                    tianModel.kx_timer = timer;
-                    [tianModel.dataArrays addObject:model2342];
-                    [tableView.readArrays addObject:tianModel];
-                }
-                if (i == dataArray.count - 1) {
-                    _post_id2 = model2342.kx_id;
-
-                }
-            }
-        }
-        [Helpr dispatch_queue_t_timer:2 send:^{
-            self->_is_down2 = NO;
-        }];
-        [[tableView readTableView ]reloadData];
-
     }
 }
 
 -(void)dwtableView:(DwTableView *)tableView downModel:(DwTableViewModel *)myTableViewModel
 {
-    if (_index == 1) {
+    if ([myTableViewModel class] ==[InformationModel class]) {
         InformationModel * model = (InformationModel *)myTableViewModel;
         _post_id1 = model.information_id;
-    }else if(_index == 2){
-
+    }else if([myTableViewModel class] ==[KxModel class]) {
+        KxModel * model = (KxModel *)myTableViewModel;
+        _post_id2 = model.kx_id ;
     }
-
 }
+
+
 -(void)InformationView:(InformationView *)informationView index:(int)index
 {
 
@@ -361,6 +320,8 @@
 -(void)DWSearchBarView:(DWSearchBarView *)seatchBarView text:(NSString *)text
 {
     NSLog(@"%@",text);
+    SousuoViewController * vc = [[SousuoViewController alloc]initWithNavTitle:@"" text:text];
+    [self.navigationController pushViewController:vc animated:YES];
     //跳转 搜索页面
 }
 
@@ -375,7 +336,31 @@
         DetailVC *vc = [[DetailVC alloc]init];
         vc.Id = model.information_id;
         [self.navigationController pushViewController:vc animated:YES];
+    }else {
+        KxModel * model = (KxModel * )myTableViewModel;
+        model.is_down = !model.is_down;
+        KXTableView * table = (KXTableView *)tableView;
+        [table.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
+}
+
+
+
+-(void)didsel:(DwTableViewCell *)Mycell btn:(UIButton *)btn model:(DwTableViewModel *)MyModel
+{
+    NSArray * array = @[@"bull_vote",@"bad_vote"];
+    KxModel * model = (KxModel *)MyModel;
+
+    [MyNetworkingManager POST:@"home/Information/evaluate" parameters:@{@"sign":array[btn.tag -100],@"newsflash_id":model.newsflash_id}  progress:^(NSProgress * _Nonnull progress) {
+
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+             id responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"%@",responseDict[@"msg"]);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+
+    }];
+
+
 }
 
 
