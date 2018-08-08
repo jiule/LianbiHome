@@ -60,9 +60,15 @@
     [super createNavView];
 
     self.navView.backgroundColor = SXRGB16Color(0xff7147);
+
+    [self.navView addSubview:JnImageView(CGRectMake(10, CGNavView_20h() +14 , 78, 16), MYimageNamed(@"logo"))];
+
+
     UIView * bgView = JnUIView(CGRectMake(100, CGNavView_20h() + 5, SCREEN_WIDTH - 120, 34), COLOR_W(0.7));
     JNViewStyle(bgView, 17, nil, 0);
     [self.navView addSubview:bgView];
+    [bgView addSubview:JnImageView(CGRectMake(bgView.width / 2 - 45, 10 , 15, 15), MYimageNamed(@"01_search_pre"))];
+    [bgView addSubview:JnLabel(CGRectMake(bgView.width / 2 - 20, 7 , 60, 20), @"搜索", JN_HH(13.5), COLOR_B3, 0)];
 
     [bgView addtapGestureRecognizer:^(UIView * _Nonnull view, UIGestureRecognizer * _Nonnull tap) {
         DWSearchBarView * view1 = [[DWSearchBarView alloc]initWithFrame:self.view.bounds];

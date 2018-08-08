@@ -192,7 +192,7 @@
         label.textColor = SXRGB16Color(0x333333);
         [btn1 addSubview:label];
 
-        UIButton * btn2 = [[UIButton alloc]initWithFrame:CGRectMake(w - 65 , 0, 50, 50)];
+        UIButton * btn2 = [[UIButton alloc]initWithFrame:CGRectMake(w - 65 , 10, 30, 30)];
         [btn2 setBackgroundImage:[UIImage imageNamed:@"02_delete"] forState:0];
         btn2.tag = 1000+i;
         [btn2 addTarget:self action:@selector(closeClick:) forControlEvents:UIControlEventTouchUpInside];
