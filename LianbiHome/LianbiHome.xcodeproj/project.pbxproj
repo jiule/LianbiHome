@@ -64,6 +64,7 @@
 		18A4D67E211A878000C938C5 /* KXTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A4D67B211A878000C938C5 /* KXTableView.m */; };
 		18A4D682211A905200C938C5 /* SousuoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A4D681211A905200C938C5 /* SousuoViewController.m */; };
 		18A4D687211A98E800C938C5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18A4D686211A98E800C938C5 /* Images.xcassets */; };
+		18A4D68F211AE4F400C938C5 /* qidong02.gif in Resources */ = {isa = PBXBuildFile; fileRef = 18A4D68E211AE4F400C938C5 /* qidong02.gif */; };
 		8426BA1021193EB70027BD6B /* UIKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426BA0E21193EB70027BD6B /* UIKitAdditions.m */; };
 		8426BA1321193F310027BD6B /* GeneralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426BA1221193F310027BD6B /* GeneralViewController.m */; };
 		8426BA16211941CA0027BD6B /* DetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426BA15211941CA0027BD6B /* DetailVC.m */; };
@@ -189,6 +190,7 @@
 		18A4D680211A905200C938C5 /* SousuoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SousuoViewController.h; sourceTree = "<group>"; };
 		18A4D681211A905200C938C5 /* SousuoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SousuoViewController.m; sourceTree = "<group>"; };
 		18A4D686211A98E800C938C5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		18A4D68E211AE4F400C938C5 /* qidong02.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = qidong02.gif; sourceTree = "<group>"; };
 		1947087169B3E225A2BE41D1 /* Pods-LianbiHome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LianbiHome.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LianbiHome/Pods-LianbiHome.debug.xcconfig"; sourceTree = "<group>"; };
 		7B0B4F4A92533574FFEA3C84 /* Pods-LianbiHome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LianbiHome.release.xcconfig"; path = "Pods/Target Support Files/Pods-LianbiHome/Pods-LianbiHome.release.xcconfig"; sourceTree = "<group>"; };
 		8426BA0D21193EB70027BD6B /* UIKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIKitAdditions.h; sourceTree = "<group>"; };
@@ -393,7 +395,6 @@
 				189CBD8E21192EAF000E6E3F /* UITextView+Help.h */,
 				189CBD8F21192EAF000E6E3F /* UIScrollView+Help.m */,
 				189CBD9021192EAF000E6E3F /* UIButton+Help.m */,
-				189CBD9121192EAF000E6E3F /* UIImageView+Help.m */,
 				189CBD9221192EAF000E6E3F /* UILabel+JNHelp.m */,
 				189CBD9321192EAF000E6E3F /* UIImage+Help.h */,
 				189CBD9421192EAF000E6E3F /* UIView+Help.m */,
@@ -403,6 +404,7 @@
 				189CBD9821192EAF000E6E3F /* UIButton+Help.h */,
 				189CBD9921192EAF000E6E3F /* UILabel+JNHelp.h */,
 				189CBD9A21192EAF000E6E3F /* UIImageView+Help.h */,
+				189CBD9121192EAF000E6E3F /* UIImageView+Help.m */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -499,10 +501,10 @@
 		189CBDE921192EBB000E6E3F /* 控制器 */ = {
 			isa = PBXGroup;
 			children = (
-				189CBDEA21192EBB000E6E3F /* BaseViewController.m */,
 				189CBDEB21192EBB000E6E3F /* BaseBodyVC.h */,
 				189CBDEC21192EBB000E6E3F /* BaseBodyVC.m */,
 				189CBDED21192EBB000E6E3F /* BaseViewController.h */,
+				189CBDEA21192EBB000E6E3F /* BaseViewController.m */,
 			);
 			path = "控制器";
 			sourceTree = "<group>";
@@ -532,6 +534,7 @@
 		189CBDF421192EBB000E6E3F /* information */ = {
 			isa = PBXGroup;
 			children = (
+				18A4D68E211AE4F400C938C5 /* qidong02.gif */,
 				189CBDF921192EBB000E6E3F /* InformationViewController.h */,
 				189CBDF521192EBB000E6E3F /* InformationViewController.m */,
 				189CBDFB21192EBB000E6E3F /* InformationModel.h */,
@@ -653,6 +656,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				189CBD4D21192E17000E6E3F /* LaunchScreen.storyboard in Resources */,
+				18A4D68F211AE4F400C938C5 /* qidong02.gif in Resources */,
 				18A4D687211A98E800C938C5 /* Images.xcassets in Resources */,
 				189CBD4A21192E17000E6E3F /* Assets.xcassets in Resources */,
 				189CBD4821192E15000E6E3F /* Main.storyboard in Resources */,

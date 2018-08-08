@@ -115,6 +115,21 @@
         });
     });
 }
-
+-(void)setGifimageName:(NSString *)name
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:@"gif"];
+    NSLog(@"%@",path);
+    NSURL *url = [NSURL URLWithString:path];
+    UIWebView *webView = [self viewWithTag:20000];
+    if (!webView) {
+        webView = [[UIWebView alloc] initWithFrame:self.bounds];
+        webView.tag = 20000;
+        webView.scalesPageToFit = YES;
+        webView.backgroundColor = [UIColor clearColor];
+        webView.opaque = YES;
+        [self addSubview:webView];
+    }
+    [webView loadRequest:[NSURLRequest requestWithURL:url]];
+}
 
 @end

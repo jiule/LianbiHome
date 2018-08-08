@@ -157,7 +157,7 @@
 
 -(void)arrayDatasDict:(NSDictionary *)dict index:(int)index
 {
-    NSLog(@"%@",dict);
+//    NSLog(@"%@",dict);
 //    return ;
     NSDictionary   * dict1 =  [dict objectForKey:@"data"];
     for (NSString * timer in dict1.allKeys) {

@@ -17,6 +17,7 @@
 #import "DetailVC.h"
 #import "SousuoViewController.h"
 #import "KxformationCell.h"
+#import <UIImage+GIF.h>
 
 
 @interface InformationViewController () <DWSearchBarViewDelegate,UIScrollViewDelegate,DwTableViewDelegate,DwTableViewCellDelegate,InformationViewDelegate>
@@ -34,6 +35,8 @@
 
     int _index;  //当前显示的 tableview
     int _is_left; //记录是左滑还是右滑动
+
+    BOOL _isgif;
 }
 
 @property(nonatomic,retain)NSMutableArray * arrayDatas1;
@@ -55,6 +58,26 @@
 
 @implementation InformationViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (!_isgif) {
+        UIImageView *gifImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"qidong02" ofType:@"gif"];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        UIImage *image = [UIImage sd_animatedGIFWithData:data];
+        gifImageView.image = image;
+        [self.view addSubview:gifImageView];
+        [Helpr dispatch_queue_t_timer:3 send:^{
+            [gifImageView removeFromSuperview];
+            self-> _isgif = YES;
+        }];
+    }
+}
+
+
+
+
 -(void)createNavView
 {
     [super createNavView];
@@ -75,19 +98,6 @@
         view1.delegate = self ;
         [view1 showWithVc:self];
     }];
-
-    //  UISearchBar * _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(10,CGNavView_20h() + 7, SCREEN_WIDTH - 80, 30)];
-    //   // UIView * bgView = [[UIView alloc]initWithFrame:_searchBar];
-    //   // bgView.backgroundColor = COLOR_W(0.7);
-    //    [_searchBar addtapGestureRecognizer:^(UIView * _Nonnull view, UIGestureRecognizer * _Nonnull tap) {
-    //        DWSearchBarView * view1 = [[DWSearchBarView alloc]initWithFrame:self.view.bounds];
-    //        [view1 showWithVc:self];
-    //    }];
-    //    _searchBar.placeholder = @"搜索";
-    //    _searchBar.delegate = self;
-    //    //   _searchBar.barTintColor = COLOR_WHITE;
-    //    [self.navView addSubview:_searchBar];
-
 }
 
 
@@ -116,7 +126,7 @@
     [self.downScrollView addSubview:hearView];
 
     UIView * downView1 = JnUIView(CGRectMake(0, hearView.height, SCREEN_WIDTH * 2, SCREEN_HEIGHT - self.nav_h - JN_HH(60)), COLOR_BLACK);
-    NSLog(@"%f",downView1.width);
+
     [self.downScrollView addSubview:downView1];
 
     [downView1 addpanGestureTecognizer:^(UIView * _Nonnull view, UIGestureRecognizer * _Nonnull tap) {
@@ -206,6 +216,7 @@
 
     self.downScrollView.contentSize = CGSizeMake(0, hearView.height + downView1.height);
     self.downScrollView.bounces = NO;
+
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -287,7 +298,7 @@
                 [ffilingArray addObject:TUPIANURL(arrayDict[@"image"])];
             }
             [_ffilingView showWithImageUrlPaths:ffilingArray didShuffling:^(ShufflingView *shufflingView, int index) {
-                NSLog(@"%f",shufflingView.width);
+            
             }];
         }
         [Helpr dispatch_queue_t_timer:2 send:^{
@@ -328,10 +339,8 @@
 
 -(void)DWSearchBarView:(DWSearchBarView *)seatchBarView text:(NSString *)text
 {
-    NSLog(@"%@",text);
     SousuoViewController * vc = [[SousuoViewController alloc]initWithNavTitle:@"" text:text];
     [self.navigationController pushViewController:vc animated:YES];
-    //跳转 搜索页面
 }
 
 -(void)DwtableView:(DwTableView *)tableview refresh:(int)page

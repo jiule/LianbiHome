@@ -46,5 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(void)setgifImageUrl:(NSString *)url;
 
+
+-(void)setGifimageName:(NSString *)name;
 @end
 NS_ASSUME_NONNULL_END
