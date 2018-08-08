@@ -19,6 +19,7 @@
     UIButton * _likongBtn;
     UIView * _xianView;
     UIView * _downView;
+    UIButton * _fenxiangBtn;
 }
 @end
 
@@ -72,6 +73,8 @@
     [_likongBtn setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
     [[_likongBtn titleLabel] setFont:[UIFont systemFontOfSize:JN_HH(13.5)]];
     [_downView addSubview:_likongBtn];
+
+    [_downView addSubview: JnButtonImageTag(CGRectMake(_downView.width - JN_HH(44), JN_HH(10) , JN_HH(20), JN_HH(20)), MYimageNamed(@"03_tab_share"), self, @selector(BtnClick:), 102)];
 }
 
 -(void)setTableViewModel:(DwTableViewModel *)tableViewModel

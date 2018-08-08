@@ -60,7 +60,7 @@
         [_textLabel setY:JN_HH(50)];
         [_timerLabel setY:JN_HH(50)];
         _imageView.frame = CGRectMake(SCREEN_WIDTH * 0.5 + JN_HH(36), JN_HH(5), SCREEN_WIDTH * 0.5 - JN_HH(36) - JN_HH(15), JN_HH(72));
-        [self createcell_h:JN_HH(100) BgColor:COLOR_B5 xian_h:1];
+        [self createcell_h:JN_HH(90) BgColor:COLOR_B6 xian_h:1];
 
     }else {
         [_titleLabel setW:SCREEN_WIDTH  - JN_HH(30)];
@@ -69,7 +69,7 @@
         [_timerLabel setY:JN_HH(30)];
 
         _imageView.frame = CGRectMake(JN_HH(15), JN_HH(60), SCREEN_WIDTH - JN_HH(30), SCREEN_WIDTH  * 0.5- JN_HH(15));
-        [self createcell_h:JN_HH(240) BgColor:COLOR_B5 xian_h:1];
+        [self createcell_h:JN_HH(240) BgColor:COLOR_B6 xian_h:1];
     }
 }
 

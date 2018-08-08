@@ -325,6 +325,11 @@ XH_ATTRIBUTE(copy, NSString, leftId);
     }];
 }
 -(void)didsel:(DwTableViewCell *)Mycell btn:(UIButton *)btn model:(DwTableViewModel *)MyModel{
+    if (btn.tag == 102) {
+        return ;
+    }
+
+
     NSArray * array = @[@"bull_vote",@"bad_vote"];
     KxModel * model = (KxModel *)MyModel;
     KxformationCell * cell = (KxformationCell *)Mycell;
