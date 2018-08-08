@@ -68,7 +68,7 @@
         UIImage *image = [UIImage sd_animatedGIFWithData:data];
         gifImageView.image = image;
         [self.view addSubview:gifImageView];
-        [Helpr dispatch_queue_t_timer:3 send:^{
+        [Helpr dispatch_queue_t_timer:2 send:^{
             [gifImageView removeFromSuperview];
             self-> _isgif = YES;
         }];
@@ -83,7 +83,7 @@
     [super createNavView];
 
     self.navView.backgroundColor = SXRGB16Color(0xff7147);
-
+    [self.navView removeDividingLine];
     [self.navView addSubview:JnImageView(CGRectMake(10, CGNavView_20h() +14 , 78, 16), MYimageNamed(@"logo"))];
 
 
@@ -349,7 +349,7 @@
 }
 -(void)DwtableView:(DwTableView *)tableView model:(DwTableViewModel *)myTableViewModel indexPath:(NSIndexPath *)indexPath
 {
-    if (_index == 1) {
+    if ([tableView isEqual:self.tableView]) {
         InformationModel * model = (InformationModel *)myTableViewModel;
         DetailVC *vc = [[DetailVC alloc]init];
         vc.Id = model.information_id;

@@ -54,7 +54,7 @@
     _timerLabel.text = [self tiemrWithpublished:model.published_time];
 
     [_imageView setimageWithurl:TUPIANURL(model.moreModel.thumbnail)];
-    if (model.cell_id % 3 != 0) {
+    if (model.cell_id % 4 != 0) {
         [_titleLabel setW:SCREEN_WIDTH * 0.5];
         [_titleLabel setH:JN_HH(45)];
         [_textLabel setY:JN_HH(50)];

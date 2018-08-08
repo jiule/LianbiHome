@@ -15,7 +15,7 @@
 #import "KxformationCell.h"
 
 
-@interface SousuoViewController ()<InformationViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface SousuoViewController ()<InformationViewDelegate,DwTableViewCellDelegate,UITableViewDelegate,UITableViewDataSource>
 
 {
     NSString * text;
@@ -247,6 +247,7 @@ XH_ATTRIBUTE(copy, NSString, leftId);
     KxformationCell * cell = [tableView dequeueReusableCellWithIdentifier:@"right"];
     if (!cell) {
         cell = [[KxformationCell alloc] initWithStyle: 0 reuseIdentifier:@"right"];
+        cell.delegate = self;
     }
     cell.tableViewModel = self.rightDataSource[indexPath.section][indexPath.row];
     return cell;
@@ -322,5 +323,26 @@ XH_ATTRIBUTE(copy, NSString, leftId);
         [self.downView1 setX:0];
         [self->informationView showWithLeftBtn:NO];
     }];
+}
+-(void)didsel:(DwTableViewCell *)Mycell btn:(UIButton *)btn model:(DwTableViewModel *)MyModel{
+    NSArray * array = @[@"bull_vote",@"bad_vote"];
+    KxModel * model = (KxModel *)MyModel;
+    KxformationCell * cell = (KxformationCell *)Mycell;
+    
+    [MyNetworkingManager POST:@"home/Information/evaluate" parameters:@{@"sign":array[btn.tag -100],@"id":model.kx_id}  progress:^(NSProgress * _Nonnull progress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        id responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSDictionary * dict  = responseDict[@"data"];
+        model.bad_vote = [NSString stringWithFormat:@"%@",dict[@"bad_vote"]];
+        model.bull_vote = [NSString stringWithFormat:@"%@",dict[@"bull_vote"]];
+        model.evaluate = array[btn.tag -100];
+        cell.tableViewModel = model;
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+    
+    
 }
 @end
