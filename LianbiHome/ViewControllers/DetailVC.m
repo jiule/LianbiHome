@@ -8,8 +8,10 @@
 
 #import "DetailVC.h"
 #import "InformationModel.h"
-
+#import <UShareUI/UShareUI.h>
+#import <UMCommon/UMCommon.h>
 #include <ctype.h>
+
 
 @interface DetailVC ()<UIWebViewDelegate>
 XH_ATTRIBUTE(strong, InformationModel, model);
@@ -50,7 +52,7 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
         [self setMiddleTitle:self.model.post_title];
         self.titleLb.text = self.model.post_title;
         self.timeLb.text = [self computeTime:self.model.published_time];
-        self.readNumLb.text = [NSString stringWithFormat:@"阅读%@",self.model.post_hits];
+        self.readNumLb.text = [NSString stringWithFormat:@"阅读%d",[self.model.post_hits intValue]+[self.model.add_hits intValue]];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.lianbihome.net/portal/article/index/id/%@.html",self.Id]];
       //  NSLog(@"%@",url);
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -73,6 +75,8 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
 }
 -(void)creatUI{
     UIScrollView * scl = [UIScrollView new];
+    scl.showsVerticalScrollIndicator = NO;
+    scl.showsHorizontalScrollIndicator = NO;
     [scl setBackgroundColor:[UIColor whiteColor]];
     scl.bounces = NO;
     [self.bodyView addSubview:scl];
@@ -160,14 +164,60 @@ XH_ATTRIBUTE(strong, UIWebView, webV);
     return dural;
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
+
+    NSString *js=@"var script = document.createElement('script');"
+    "script.type = 'text/javascript';"
+    "script.text = \"function ResizeImages() { "
+    "var myimg,oldwidth;"
+    "var maxwidth = %f;"
+    "for(i=0;i <document.images.length;i++){"
+    "myimg = document.images[i];"
+    "if(myimg.width > maxwidth){"
+    "oldwidth = myimg.width;"
+    "myimg.width = %f;"
+    "}"
+    "}"
+    "}\";"
+    "document.getElementsByTagName('head')[0].appendChild(script);";
+    js=[NSString stringWithFormat:js,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.width-15];
+    [webView stringByEvaluatingJavaScriptFromString:js];
+    [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
+
     float height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] floatValue];
     [self.webV mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(height + 20);
     }];
+
+//    CGSize contentSize = webView.scrollView.contentSize;
+//    CGSize viewSize = self.view.bounds.size;
+//
+//    float rw = viewSize.width / contentSize.width;
+//
+//    webView.scrollView.minimumZoomScale = rw;
+//    webView.scrollView.maximumZoomScale = rw;
+//    webView.scrollView.zoomScale = rw;
 }
 #pragma mark 分享点击了
 -(void)share{
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        // 根据获取的platformType确定所选平台进行下一步操作
+         UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+        UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.model.post_title descr:self.model.post_content thumImage:MYimageNamed(@"AppIcon-1")];
+        shareObject.webpageUrl = [NSString stringWithFormat:@"http://www.lianbihome.net/news_details.html?id=%@",self.Id];
     
+        messageObject.shareObject = shareObject;
+        [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+            if (error) {
+                [MYAlertController showNavViewWith:@"分享失败"];
+            }else{
+                if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                    [MYAlertController showNavViewWith:@"分享成功"];
+                }else{
+
+                }
+            }
+        }];
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

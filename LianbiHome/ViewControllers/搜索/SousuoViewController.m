@@ -15,11 +15,18 @@
 #import "KxformationCell.h"
 
 
-@interface SousuoViewController ()<InformationViewDelegate,DwTableViewCellDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface SousuoViewController ()<InformationViewDelegate,DwTableViewCellDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 
 {
     NSString * text;
     InformationView * informationView;
+
+    UISearchBar * _searchBar;
+    UITextField * _textField;
+
+    UIImageView * _imageView1;
+    UIImageView * _imageView2;
+
 }
 
 @property(nonatomic,retain)UIView * downView1;
@@ -64,6 +71,37 @@ XH_ATTRIBUTE(copy, NSString, leftId);
     }
     return nil;
 }
+-(void)createNavView
+{
+    _searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(10,CGNavView_20h() + 7, SCREEN_WIDTH - 80, 30)];
+    UIView * bgView = [[UIView alloc]initWithFrame:_searchBar.frame];
+    bgView.backgroundColor = [UIColor whiteColor];
+    JNViewStyle(bgView, 15, nil, 0);
+    _searchBar.backgroundImage = [self makeImageWithView:bgView withSize:CGSizeMake(_searchBar.frame.size.width, _searchBar.frame.size.height)];
+    _searchBar.placeholder = @"搜索关键字";
+    _searchBar.text = text;
+    _searchBar.delegate = self;
+    _searchBar.barTintColor = COLOR_WHITE;
+    [_searchBar.layer setCornerRadius:15];
+    [self.view addSubview:_searchBar];
+
+     UITextField * searchTextField = [_searchBar valueForKey:@"_searchField"];
+    searchTextField.backgroundColor = COLOR_WHITE;
+    searchTextField.textColor = COLOR_B2;
+    //    [searchTextField becomeFirstResponder];
+    _textField = searchTextField;
+
+    UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 70, 7 + CGNavView_20h(), 60, 30)];
+    [btn setTitle:@"取消" forState:0];
+    [btn titleLabel].font = [UIFont systemFontOfSize:16.5];
+    [btn setTitleColor:[UIColor blackColor] forState:0];
+    [btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view  addSubview:btn];
+}
+-(void)btnClick
+{
+    FANHUI_JIUSHITU;
+}
 
 -(void)createView{
     float h = self.nav_h;
@@ -86,11 +124,14 @@ XH_ATTRIBUTE(copy, NSString, leftId);
     self.leftTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.downView1.frame.size.height) style:0];
     self.leftTableView.delegate = self;
     self.leftTableView.dataSource = self;
+    self.leftTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.downView1 addSubview: self.leftTableView];
     self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, self.downView1.frame.size.height) style:0];
     self.rightTableView.delegate = self;
     self.rightTableView.dataSource = self;
+    self.rightTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.downView1 addSubview: self.rightTableView];
+    self.view.clipsToBounds = YES;
     [self refresh];
 }
 -(void)InformationView:(InformationView *)informationView index:(int)index{
@@ -120,44 +161,71 @@ XH_ATTRIBUTE(copy, NSString, leftId);
         [tableView.mj_footer endRefreshingWithNoMoreData];
 }
 -(void)refreshLeft{
+    [self.leftDataSource removeAllObjects];
+    [self.rightStrArr removeAllObjects];
+    [self.rightDataSource removeAllObjects];
+    [self.leftTableView reloadData];
+    [self.rightTableView reloadData];
+
     [MyNetworkingManager DDPOSTResqust:@"home/Information/search_all" withparameters:@{@"keyword":text} withVC:self progress:^(NSProgress * _Nonnull pro) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary * dic = (NSDictionary *)responseObject;
         NSDictionary * dict = dic[@"zx"];
-        NSArray * arr = dict[@"list"];
-        for (int i = 0; i < arr.count; i ++) {
-            NSDictionary * dict1 = arr[i];
-            InformationModel * model = [[InformationModel alloc] initWithDict:dict1];
-            model.cell_id = self.leftDataSource.count + 1;
-            [self.leftDataSource addObject:model];
-            if (i == arr.count - 1) {
-                self.leftId = model.information_id;
+        if ([dict[@"count"]intValue] == 0) {
+            self->_imageView1 = JnImageView(CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH), MYimageNamed(@"05_2X"));
+            [self.leftTableView addSubview:self->_imageView1];
+            self.leftTableView.mj_footer = nil ;
+        }else {
+            [self->_imageView1 removeFromSuperview];
+            self.leftTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreLeft)];
+            NSArray * arr = dict[@"list"];
+            for (int i = 0; i < arr.count; i ++) {
+                NSDictionary * dict1 = arr[i];
+                InformationModel * model = [[InformationModel alloc] initWithDict:dict1];
+                model.cell_id = self.leftDataSource.count + 1;
+                [self.leftDataSource addObject:model];
+                if (i == arr.count - 1) {
+                    self.leftId = model.information_id;
+                }
+
             }
+              [self change:self.leftTableView dataSource:arr];
         }
+
         NSDictionary * dict2 = dic[@"kx"];
-        NSDictionary   * dict1 =  dict2[@"list"];
-        for (NSString * timer in dict1.allKeys) {
-            NSArray * dataArray = dict1[timer];
-            for (int i = 0 ; i < dataArray.count; i++) {
-                KxModel  * model = [[KxModel alloc]initWithDict:dataArray[i]];
-                if ([self.rightStrArr containsObject:timer]) {
-                    NSMutableArray * array = self.rightDataSource[[self.rightStrArr indexOfObject:timer]];
-                    [array addObject:model];
-                }
-                else{
-                    [self.rightStrArr addObject:timer];
-                    NSMutableArray * array = [NSMutableArray array];
-                    [array addObject:model];
-                    [self.rightDataSource addObject:array];
-                }
-                if (i == dataArray.count - 1) {
-                    self.rightId = model.kx_id;
+        if ([dict2[@"count"]intValue] == 0) {
+            self->_imageView2 = JnImageView(CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH), MYimageNamed(@"05_2X"));
+            [self.rightTableView addSubview:self->_imageView2];
+            self.rightTableView.mj_footer = nil ;
+            return  ;
+        }else {
+            [self->_imageView2 removeFromSuperview];
+            self.rightTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreRight)];
+            NSDictionary   * dict1 =  dict2[@"list"];
+            for (NSString * timer in dict1.allKeys) {
+                NSArray * dataArray = dict1[timer];
+                for (int i = 0 ; i < dataArray.count; i++) {
+                    KxModel  * model = [[KxModel alloc]initWithDict:dataArray[i]];
+                    if ([self.rightStrArr containsObject:timer]) {
+                        NSMutableArray * array = self.rightDataSource[[self.rightStrArr indexOfObject:timer]];
+                        [array addObject:model];
+                    }
+                    else{
+                        [self.rightStrArr addObject:timer];
+                        NSMutableArray * array = [NSMutableArray array];
+                        [array addObject:model];
+                        [self.rightDataSource addObject:array];
+                    }
+                    if (i == dataArray.count - 1) {
+                        self.rightId = model.kx_id;
+                    }
                 }
             }
-        }
-        [self change:self.leftTableView dataSource:arr];
         [self change:self.rightTableView dataSource:dict1.allKeys];
+        }
+        [self.leftTableView reloadData];
+        [self.rightTableView reloadData];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -181,6 +249,9 @@ XH_ATTRIBUTE(copy, NSString, leftId);
     }
     else if (type == 2){
         NSDictionary * dict1 = dic[@"list"];
+        if ([dict1[@"count"]intValue] == 0) {
+            return  ;
+        }
         for (NSString * timer in dict1.allKeys) {
             NSArray * dataArray = dict1[timer];
             for (int i = 0 ; i < dataArray.count; i++) {
@@ -204,6 +275,10 @@ XH_ATTRIBUTE(copy, NSString, leftId);
     }
 }
 -(void)loadMoreLeft{
+    if (!self.leftId ) {
+        [self.leftTableView.mj_footer endRefreshing];
+        return ;
+    }
     [MyNetworkingManager DDPOSTResqust:@"home/Information/search_info" withparameters:@{@"keyword":text,@"id":self.leftId,@"type":@"1"} withVC:self progress:^(NSProgress * _Nonnull pro) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -213,6 +288,10 @@ XH_ATTRIBUTE(copy, NSString, leftId);
     }];
 }
 -(void)loadMoreRight{
+    if (!self.rightId) {
+        [self.rightTableView.mj_footer endRefreshing];
+        return ;
+    }
     [MyNetworkingManager DDPOSTResqust:@"home/Information/search_info" withparameters:@{@"keyword":text,@"id":self.rightId,@"type":@"2"} withVC:self progress:^(NSProgress * _Nonnull pro) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -279,7 +358,7 @@ XH_ATTRIBUTE(copy, NSString, leftId);
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     if (tableView == self.rightTableView) {
         UIView * view = JnUIView(CGRectMake(0, 0, SCREEN_WIDTH, JN_HH(40)), [UIColor groupTableViewBackgroundColor]);
-        UILabel * label = JnLabel(CGRectMake(JN_HH(20), JN_HH(5), SCREEN_WIDTH - JN_HH(40), JN_HH(20)), @"", JN_HH(14.5), COLOR_RED, 0);
+        UILabel * label = JnLabel(CGRectMake(JN_HH(20), JN_HH(10), SCREEN_WIDTH - JN_HH(40), JN_HH(20)), @"", JN_HH(14.5), COLOR_RED, 0);
         if (self.rightStrArr.count > section) {
             label.text = [self  readTimerWithStr:self.rightStrArr[section]];
         }
@@ -341,8 +420,13 @@ XH_ATTRIBUTE(copy, NSString, leftId);
         NSDictionary * dict  = responseDict[@"data"];
         model.bad_vote = [NSString stringWithFormat:@"%@",dict[@"bad_vote"]];
         model.bull_vote = [NSString stringWithFormat:@"%@",dict[@"bull_vote"]];
-        model.evaluate = array[btn.tag -100];
+       // model.evaluate = array[btn.tag -100];
         cell.tableViewModel = model;
+        if ([model.evaluate isEqualToString:array[btn.tag -100]]) {
+            model.evaluate = @"";
+        }else {
+            model.evaluate = array[btn.tag -100];
+        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -350,4 +434,30 @@ XH_ATTRIBUTE(copy, NSString, leftId);
     
     
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [Listeningkeyboard endEditing];
+    if (searchBar.text.length > 0) {
+        NSArray * downArray = [MyUserDefaultsManager objectForKey:DWSEATCHBAR];
+        NSMutableArray * array =[NSMutableArray arrayWithArray:downArray];
+        [array insertObject:searchBar.text atIndex:0];
+        [MyUserDefaultsManager setObject:array forkey:DWSEATCHBAR];
+        text = searchBar.text;
+        [self refreshLeft];
+
+    }
+}
+
+
+#pragma mark 生成image
+- (UIImage *)makeImageWithView:(UIView *)view withSize:(CGSize)size
+{
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 @end

@@ -15,10 +15,10 @@
 #import "MyUserDefaultsManager.h"
 #import "MyNetworking.h"
 #import "Permissions.h"
-#import "Masonry.h"
 #import "MYAlertController.h"
 #import "MyActivityIndicatorViewManager.h"
 #import "UIKitAdditions.h"
+#import "Masonry.h"
 
 //-------------------------------------------------------------------------------------------------------
 //------------------------------------测试 生产环境配置-------------------------------------------------------

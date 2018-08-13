@@ -24,17 +24,17 @@
 -(void)createCell
 {
     float  x = JN_HH(15);
-    _titleLabel = JnLabel(CGRectMake(x, JN_HH(5), SCREEN_WIDTH * 0.5, JN_HH(45)), @"", JN_HH(16), SXRGB16Color(0x333333),0 );
+    _titleLabel = JnLabel(CGRectMake(x, JN_HH(10), SCREEN_WIDTH * 0.5, JN_HH(45)), @"", JN_HH(16), SXRGB16Color(0x333333),0 );
     _titleLabel.numberOfLines = 0;
     [self     addSubview:_titleLabel];
 
-    _textLabel = JnLabel(CGRectMake(x, JN_HH(50), SCREEN_WIDTH * 0.5, JN_HH(20)), @"", JN_HH(10), SXRGB16Color(0xb5b6c7),0 );
+    _textLabel = JnLabel(CGRectMake(x, JN_HH(55), SCREEN_WIDTH * 0.5, JN_HH(20)), @"", JN_HH(10), SXRGB16Color(0xb5b6c7),0 );
     [self addSubview:_textLabel];
 
-    _timerLabel = JnLabel(CGRectMake(x, JN_HH(50), SCREEN_WIDTH * 0.5, JN_HH(20)), @"", JN_HH(10), SXRGB16Color(0xb5b6c7),0 );
+    _timerLabel = JnLabel(CGRectMake(x, JN_HH(55), SCREEN_WIDTH * 0.5, JN_HH(20)), @"", JN_HH(10), SXRGB16Color(0xb5b6c7),0 );
     [self addSubview:_timerLabel];
 
-    _imageView = JnImageView(CGRectMake(SCREEN_WIDTH * 0.5 + JN_HH(36), JN_HH(5), SCREEN_WIDTH * 0.5 - JN_HH(36) - x, JN_HH(72)), MYimageNamed(@""));
+    _imageView = JnImageView(CGRectMake(SCREEN_WIDTH * 0.5 + JN_HH(36), JN_HH(10), SCREEN_WIDTH * 0.5 - JN_HH(36) - x, JN_HH(72)), MYimageNamed(@""));
     [self addSubview:_imageView];
 }
 
@@ -57,18 +57,18 @@
     if (model.cell_id % 4 != 0) {
         [_titleLabel setW:SCREEN_WIDTH * 0.5];
         [_titleLabel setH:JN_HH(45)];
-        [_textLabel setY:JN_HH(50)];
-        [_timerLabel setY:JN_HH(50)];
-        _imageView.frame = CGRectMake(SCREEN_WIDTH * 0.5 + JN_HH(36), JN_HH(5), SCREEN_WIDTH * 0.5 - JN_HH(36) - JN_HH(15), JN_HH(72));
-        [self createcell_h:JN_HH(90) BgColor:COLOR_B6 xian_h:1];
+        [_textLabel setY:JN_HH(55)];
+        [_timerLabel setY:JN_HH(55)];
+        _imageView.frame = CGRectMake(SCREEN_WIDTH * 0.5 + JN_HH(36), JN_HH(10), SCREEN_WIDTH * 0.5 - JN_HH(36) - JN_HH(15), JN_HH(72));
+        [self createcell_h:JN_HH(92) BgColor:COLOR_B6 xian_h:1];
 
     }else {
         [_titleLabel setW:SCREEN_WIDTH  - JN_HH(30)];
         [_titleLabel setH:JN_HH(30)];
-        [_textLabel setY:JN_HH(30)];
-        [_timerLabel setY:JN_HH(30)];
+        [_textLabel setY:JN_HH(35)];
+        [_timerLabel setY:JN_HH(35)];
 
-        _imageView.frame = CGRectMake(JN_HH(15), JN_HH(60), SCREEN_WIDTH - JN_HH(30), SCREEN_WIDTH  * 0.5- JN_HH(15));
+        _imageView.frame = CGRectMake(JN_HH(15), JN_HH(65), SCREEN_WIDTH - JN_HH(30), SCREEN_WIDTH  * 0.5- JN_HH(15));
         [self createcell_h:JN_HH(240) BgColor:COLOR_B6 xian_h:1];
     }
 }

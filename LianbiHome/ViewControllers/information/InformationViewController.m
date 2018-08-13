@@ -17,14 +17,13 @@
 #import "DetailVC.h"
 #import "SousuoViewController.h"
 #import "KxformationCell.h"
-#import <UIImage+GIF.h>
+#import "UIImage+GIF.h"
 
 
 @interface InformationViewController () <DWSearchBarViewDelegate,UIScrollViewDelegate,DwTableViewDelegate,DwTableViewCellDelegate,InformationViewDelegate>
 {
     ShufflingView * _ffilingView;
     InformationView * _informationView;
-
 
     int _page1;
     BOOL _is_down1;
@@ -51,10 +50,7 @@
 
 @property(nonatomic,retain)KXTableView * tableView1;
 
-
-
 @end
-
 
 @implementation InformationViewController
 
@@ -83,7 +79,6 @@
     [self.navView removeDividingLine];
     [self.navView addSubview:JnImageView(CGRectMake(10, CGNavView_20h() +14 , 78, 16), MYimageNamed(@"logo"))];
 
-
     UIView * bgView = JnUIView(CGRectMake(100, CGNavView_20h() + 5, SCREEN_WIDTH - 120, 34), COLOR_W(0.7));
     JNViewStyle(bgView, 17, nil, 0);
     [self.navView addSubview:bgView];
@@ -100,10 +95,10 @@
 
 -(void)createView
 {
-
     _page1 = 1;
     _page2 = 1;
     _index = 1;
+
     UIScrollView * scrollView = JnScrollView(CGRectMake(0, self.nav_h, self.view.width, SCREEN_HEIGHT - self.nav_h), COLOR_WHITE);
     //  scrollView.delegate = self;
     [self.view addSubview:scrollView];
@@ -213,7 +208,6 @@
 
     self.downScrollView.contentSize = CGSizeMake(0, hearView.height + downView1.height);
     self.downScrollView.bounces = NO;
-
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -278,8 +272,10 @@
     {
         if (_page2 <= 1) {
             [self.tableView1 downWithdict:@{} index:_page2];
+           // NSLog(@"asdfsadfsadfsadf");
         }else {
-            [self.tableView1 downWithdict:@{@"post_id":_post_id2} index:_page2];
+            [self.tableView1 downWithdict:@{@"id":_post_id2} index:_page2];
+          // NSLog(@"aaaaaaaaaa-----%@",_post_id2);
         }
     }
 }
@@ -301,6 +297,8 @@
         [Helpr dispatch_queue_t_timer:2 send:^{
             self->_is_down1 = NO;
         }];
+    }else {
+        NSLog(@"%@",dict);
     }
 }
 
@@ -309,9 +307,12 @@
     if ([myTableViewModel class] ==[InformationModel class]) {
         InformationModel * model = (InformationModel *)myTableViewModel;
         _post_id1 = model.information_id;
+        _page1 ++;
     }else if([myTableViewModel class] ==[KxModel class]) {
         KxModel * model = (KxModel *)myTableViewModel;
         _post_id2 = model.kx_id ;
+        _page2 ++;
+        NSLog(@"1111---------%@",_post_id2);
     }
 }
 
@@ -324,11 +325,15 @@
             [self.downView1 setX:0];
             self->_index = 1;
             [self->_tableView readTableView].contentOffset = CGPointMake(0, 0);
+            _page1 = 1;
+            [self tableViewDownWithPage:_page1];
         }else if(index == 1)
         {
             [self.downView1 setX:-SCREEN_WIDTH];
             self->_index = 2;
             [self->_tableView1 readTableView].contentOffset = CGPointMake(0, 0);
+            _page2 = 1;
+            [self tableViewDownWithPage:_page2];
         }
     }];
 }
@@ -381,14 +386,14 @@
         NSDictionary * dict  = responseDict[@"data"];
         model.bad_vote = [NSString stringWithFormat:@"%@",dict[@"bad_vote"]];
         model.bull_vote = [NSString stringWithFormat:@"%@",dict[@"bull_vote"]];
-        model.evaluate = array[btn.tag -100];
+        if ([model.evaluate isEqualToString:array[btn.tag -100]]) {
+            model.evaluate = @"";
+        }else {
+            model.evaluate = array[btn.tag -100];
+        }
         cell.tableViewModel = model;
-
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-
     }];
-
-
 }
 
 

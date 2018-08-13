@@ -8,9 +8,12 @@
 
 #import "KxformationCell.h"
 #import "InformationModel.h"
+#import <UShareUI/UShareUI.h>
+#import <UMCommon/UMCommon.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 
-@interface KxformationCell()
+@interface KxformationCell()<UMSocialShareMenuViewDelegate>
 {
     UILabel * _timerLabel;
     UILabel * _titleLabel;
@@ -20,6 +23,8 @@
     UIView * _xianView;
     UIView * _downView;
     UIButton * _fenxiangBtn;
+    KxModel * _model;
+    UIView * _bgView;
 }
 @end
 
@@ -87,6 +92,7 @@
 {
     [super setTableViewModel:tableViewModel];
     KxModel * model = (KxModel *)tableViewModel;
+    _model = model;
     _timerLabel.text = model.issue_time;
     _titleLabel.text = model.title;
     _textLabel.text = model.content;
@@ -123,13 +129,77 @@
 
 -(void)BtnClick:(UIButton *)btn
 {
+    if (btn.tag == 102) {
+        [self share];
+        return ;
+    }
     if ([self.delegate respondsToSelector:@selector(didsel:btn:model:)]) {
         [self.delegate didsel:self btn:btn model:self.tableViewModel];
     }
 }
 
+#pragma mark 分享点击了
+-(void)share{
+    NSLog(@"%@",[NSString stringWithFormat:@"http://api.456mobi.com/api/?s=home/Newsflash/get_newsflash_pic&id=%@",self->_model.kx_id]);
+    _fenxiangBtn.userInteractionEnabled = NO;
+    [MyNetworkingManager POST:[NSString stringWithFormat:@"home/Newsflash/get_newsflash_pic&id=%@",self->_model.kx_id] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+         id responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSData *decodeData = [[NSData alloc]initWithBase64EncodedString:[responseDict[@"data"] substringFromIndex:22] options:(NSDataBase64DecodingIgnoreUnknownCharacters)];
+        // 将NSData转为UIImage
+        UIImage *decodedImage = [UIImage imageWithData: decodeData];
 
-    
+        UIView * bgView = JnUIView([UIViewController getCurrentVC].view.bounds, COLOR_B(0.7));
+        [bgView addSubview:JnImageView(CGRectMake(JN_HH(30), CGNavView_h() - JN_HH(30), SCREEN_WIDTH - JN_HH(60), SCREEN_HEIGHT - CGNavView_h()), decodedImage)];
+        _bgView = bgView;
+        [[UIViewController getCurrentVC].view addSubview:bgView];
+         _fenxiangBtn.userInteractionEnabled = YES ;
+        [UMSocialUIManager  addCustomPlatformWithoutFilted:UMSocialPlatformType_Renren withPlatformIcon:MYimageNamed(@"04_share_img") withPlatformName:@"保存图片"];
+        [UMSocialUIManager setShareMenuViewDelegate:self];
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            if (platformType == UMSocialPlatformType_Renren) {
+                [self loadImageFinished:decodedImage];
+            }else {
+                UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+                UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+                [shareObject setShareImage:decodedImage];
+                //分享消息对象设置分享内容对象
+                messageObject.shareObject = shareObject;
+
+                [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:[UIViewController getCurrentVC] completion:^(id data, NSError *error) {
+                    if (error) {
+                        [MYAlertController showNavViewWith:@"分享失败"];
+                    }else{
+                        if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                            [MYAlertController showNavViewWith:@"分享成功"];
+                        }
+                    }
+                }];
+            }
+            [bgView removeFromSuperview];
+        }];
+
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        _fenxiangBtn.userInteractionEnabled = YES ;
+        [_bgView removeFromSuperview];
+    }];
+}
+- (void)loadImageFinished:(UIImage *)image
+{
+    __block ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+    [lib writeImageToSavedPhotosAlbum:image.CGImage metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
+
+        if(!error)
+        {
+            [MYAlertController showNavViewWith:@"保存成功"];
+        }
+        lib = nil;
+    }];
+}
+
+- (void)UMSocialShareMenuViewDidDisappear
+{
+    [_bgView removeFromSuperview];
+}
 
 
 @end

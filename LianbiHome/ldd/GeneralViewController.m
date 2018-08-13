@@ -62,7 +62,7 @@
     if ([_naviView viewWithTag:Tag_middle_title]) {
         [[_naviView viewWithTag:Tag_middle_title] removeFromSuperview];
     }
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 180, CGNavView_h() -CGNavView_20h())];
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGNavView_20h(), 180, CGNavView_h() -CGNavView_20h())];
     label.font = [UIFont systemFontOfSize:20];
     label.textColor = [UIColor blackColor];
     label.textAlignment = NSTextAlignmentCenter;
@@ -107,8 +107,8 @@
 {
     if (self = [super init])
     {
-        self.frame = CGRectMake(0, 0, barItem_width, Tabbar_49h());
-        self.center=CGPointMake(barItem_width/2, CGNavView_20h() + 22);
+        self.frame = CGRectMake(0, CGNavView_20h(), barItem_width, CGNavView_h()- CGNavView_20h());
+        self.center=CGPointMake(barItem_width/3, CGNavView_20h() + 22);
         _navLeftButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_navLeftButton.imageView setContentMode:UIViewContentModeScaleAspectFit];
         [_navLeftButton setImage:[UIImage imageNamed:imgName] forState:UIControlStateNormal];
@@ -133,7 +133,7 @@
 -(id)initWithStr:(NSString*)str target:(id)target action:(SEL)action
 {
     if (self = [super init]){
-        self.frame = CGRectMake(SCREEN_WIDTH-barItem_width, 27, barItem_width, Tabbar_49h());
+        self.frame = CGRectMake(SCREEN_WIDTH-barItem_width, CGNavView_20h() + 7, barItem_width, Tabbar_49h()-  CGNavView_20h() + 14);
         self.center=CGPointMake(SCREEN_WIDTH-barItem_width/2, CGNavView_20h()+22);
         _navRightButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_navRightButton setTitle:str forState:UIControlStateNormal];
@@ -148,8 +148,8 @@
 {
     if (self = [super init])
     {
-        self.frame = CGRectMake(SCREEN_WIDTH-barItem_width, 23, barItem_width, Tabbar_49h());
-        self.center = CGPointMake(SCREEN_WIDTH-barItem_width/2, CGNavView_20h()+22);
+        self.frame = CGRectMake(SCREEN_WIDTH - barItem_width, CGNavView_20h() + 3, barItem_width, CGNavView_h() -CGNavView_20h());
+        self.center = CGPointMake(SCREEN_WIDTH - barItem_width/3 , CGNavView_20h()+22);
         _navRightButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_navRightButton.imageView setContentMode:UIViewContentModeScaleAspectFit];
         [_navRightButton setImage:[UIImage imageNamed:imgName] forState:UIControlStateNormal];
