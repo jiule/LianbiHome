@@ -142,7 +142,8 @@
 {
     if ([UIDevice currentDevice].systemVersion.floatValue >= 8.0f) {
         [self setAlertControllermessage:message cancelAction:[UIAlertAction actionWithTitle:@"去开启" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            NSURL *url = [NSURL URLWithString:@"App-Prefs:root=WIFI"];
+//            NSURL *url = [NSURL URLWithString:@"App-Prefs:root=WIFI"];
+             NSURL * url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
             if ([UIDevice currentDevice].systemVersion.floatValue >= 10.0f) {
                 [[UIApplication  sharedApplication] openURL:url options:@{} completionHandler:nil];
             }else {

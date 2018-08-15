@@ -46,34 +46,34 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (BOOL) isRearCameraAvailable;
 
-/*
- * 判断定位有木有打开
- */
-+ (BOOL)isLocationServicesEnabled;
+///*
+// * 判断定位有木有打开
+// */
+//+ (BOOL)isLocationServicesEnabled;
 /*
  * 判断麦克风权限
  */
 + (BOOL)isRequestRecord;
-/*
- * 判断日历权限
- */
-+ (BOOL)isEKAuthorizationStatus;
-/*
- * 判断通讯录权限
- */
-+ (BOOL)isCNAuthorizationStatus;
-/*
- * 判断推送权限
- */
-+ (BOOL)isUIUserNotificationSettings;
-/*
- * 判断蓝牙权限
- */
-+ (BOOL)isCBCentralManager;
-/*
- * 判断运动与健康权限
- */
-+(BOOL)isHKAuthorizationStatus;
+///*
+// * 判断日历权限
+// */
+//+ (BOOL)isEKAuthorizationStatus;
+///*
+// * 判断通讯录权限
+// */
+//+ (BOOL)isCNAuthorizationStatus;
+///*
+// * 判断推送权限
+// */
+//+ (BOOL)isUIUserNotificationSettings;
+///*
+// * 判断蓝牙权限
+// */
+//+ (BOOL)isCBCentralManager;
+///*
+// * 判断运动与健康权限
+// */
+//+(BOOL)isHKAuthorizationStatus;
 
 @end
 
