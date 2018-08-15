@@ -85,7 +85,7 @@
 
 -(void)setTableViewModel:(DwTableViewModel *)tableViewModel
 {
-    [super setTableViewModel:tableViewModel];
+    [super setTableViewModel:tableViewModel];//
     KxModel * model = (KxModel *)tableViewModel;
     _timerLabel.text = model.issue_time;
     _titleLabel.text = model.title;
