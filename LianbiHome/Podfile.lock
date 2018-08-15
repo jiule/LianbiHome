@@ -1,44 +1,44 @@
 PODS:
-  - AFNetworking (3.2.1):
-    - AFNetworking/NSURLSession (= 3.2.1)
-    - AFNetworking/Reachability (= 3.2.1)
-    - AFNetworking/Security (= 3.2.1)
-    - AFNetworking/Serialization (= 3.2.1)
-    - AFNetworking/UIKit (= 3.2.1)
-  - AFNetworking/NSURLSession (3.2.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.1)
-  - AFNetworking/Security (3.2.1)
-  - AFNetworking/Serialization (3.2.1)
-  - AFNetworking/UIKit (3.2.1):
-    - AFNetworking/NSURLSession
   - Masonry (1.1.0)
-  - MJRefresh (3.1.15.3)
-  - SDWebImage (4.4.2):
-    - SDWebImage/Core (= 4.4.2)
-  - SDWebImage/Core (4.4.2)
+  - UMCCommon (1.5.2)
+  - UMCSecurityPlugins (1.0.6)
+  - UMCShare/Core (6.9.4):
+    - UMCCommon
+  - UMCShare/Social/DingDing (6.9.4):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/ReducedQQ (6.9.4):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/ReducedWeChat (6.9.4):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/UI (6.9.4):
+    - UMCCommon
+    - UMCShare/Core
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.0)
   - Masonry
-  - MJRefresh
-  - SDWebImage (~> 4.0)
+  - UMCCommon
+  - UMCSecurityPlugins
+  - UMCShare/Social/DingDing
+  - UMCShare/Social/ReducedQQ
+  - UMCShare/Social/ReducedWeChat
+  - UMCShare/UI
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - AFNetworking
     - Masonry
-    - MJRefresh
-    - SDWebImage
+    - UMCCommon
+    - UMCSecurityPlugins
+    - UMCShare
 
 SPEC CHECKSUMS:
-  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
-  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  UMCCommon: 4392868ac47ff1b101663106bb114ba616fabbad
+  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
+  UMCShare: aa233aecad67979930fe43f3a2f676023b669439
 
-PODFILE CHECKSUM: 8d3da8ae4c1c174f7dad6c258f5b766afa268495
+PODFILE CHECKSUM: 1cc895ae859310caaeef1aed08be57396135257e
 
 COCOAPODS: 1.5.3

@@ -13,7 +13,7 @@
 -(void)setDict:(NSMutableDictionary *)dict
 {
     [super setDict:dict];
-    self.cell_h = 100 ;
+    self.cell_h = 1000 ;
 }
 
 

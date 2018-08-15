@@ -7,6 +7,7 @@
 //
 
 #import "BaseViewController.h"
+#import "DWSearchBarView.h"
 
 @interface SousuoViewController : BaseViewController
 

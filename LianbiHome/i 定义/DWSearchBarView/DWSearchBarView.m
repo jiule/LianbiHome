@@ -8,9 +8,7 @@
 
 #import "DWSearchBarView.h"
 #import "MyUserDefaultsManager.h"
-#import <AFNetworking.h>
-
-#define DWSEATCHBAR  @"DWSEATCHBAR"
+#import "AFNetworking.h"
 
 @interface DWSearchBarView() <UISearchBarDelegate>
 {
@@ -20,7 +18,6 @@
     UIView * _upView;
     UIScrollView * _downView;
 }
-
 
 @property(nonatomic,retain)NSMutableArray * seatchbarArrays;
 
@@ -76,7 +73,7 @@
     bgView.backgroundColor = [UIColor whiteColor];
     JNViewStyle(bgView, 15, nil, 0);
     _searchBar.backgroundImage = [self makeImageWithView:bgView withSize:CGSizeMake(_searchBar.frame.size.width, _searchBar.frame.size.height)];
-    _searchBar.placeholder = @"";
+    _searchBar.placeholder = @"搜索关键字";
     _searchBar.delegate = self;
     _searchBar.barTintColor = COLOR_WHITE;
     [_searchBar.layer setCornerRadius:15];

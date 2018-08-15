@@ -1,7 +1,10 @@
-platform :ios,'9.0'
+platform :ios,'10.0'
 target 'LianbiHome' do
-	pod "Masonry"
-	pod 'SDWebImage', '~> 4.0'
-        pod 'AFNetworking', '~> 3.0'
-        pod 'MJRefresh'
+        pod 'UMCCommon'
+        pod 'UMCSecurityPlugins'
+        pod 'UMCShare/Social/DingDing'
+        pod 'UMCShare/Social/ReducedWeChat'
+        pod 'UMCShare/Social/ReducedQQ'
+        pod 'UMCShare/UI'
+        pod 'Masonry'
 end

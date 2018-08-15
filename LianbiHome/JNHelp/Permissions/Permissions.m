@@ -16,13 +16,13 @@
 #import <Photos/Photos.h>
 #import "CoreLocation/CoreLocation.h"
 #import <CoreTelephony/CTCellularData.h>
-#import <EventKitUI/EventKitUI.h>
-#import <AddressBook/AddressBook.h>        // 通讯录权限  IOS 9.0 前
-#import <Contacts/Contacts.h>              // 通讯录权限  IOS 9.0 后
-#import <UserNotifications/UserNotifications.h>  
-#import <CoreBluetooth/CoreBluetooth.h>
-#import <CoreBluetooth/CBService.h>
-#import <HealthKit/HealthKit.h>
+//#import <EventKitUI/EventKitUI.h>
+//#import <AddressBook/AddressBook.h>        // 通讯录权限  IOS 9.0 前
+//#import <Contacts/Contacts.h>              // 通讯录权限  IOS 9.0 后
+//#import <UserNotifications/UserNotifications.h>
+//#import <CoreBluetooth/CoreBluetooth.h>
+//#import <CoreBluetooth/CBService.h>
+//#import <HealthKit/HealthKit.h>
 
 
 @interface Permissions ()
@@ -98,17 +98,17 @@
 + (BOOL) isRearCameraAvailable{
     return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
 }
-
-+(BOOL)isLocationServicesEnabled
-{
-    if ([CLLocationManager locationServicesEnabled]) {
-        return YES;
-    }else {
-         [Helpr addPrefsAlertControllerMessage:@"定位权限受限!去开启?"];
-        return NO;
-    }
-    return YES ;
-}
+//
+//+(BOOL)isLocationServicesEnabled
+//{
+//    if ([CLLocationManager locationServicesEnabled]) {
+//        return YES;
+//    }else {
+//         [Helpr addPrefsAlertControllerMessage:@"定位权限受限!去开启?"];
+//        return NO;
+//    }
+//    return YES ;
+//}
 
 + (BOOL)isRequestRecord
 {
@@ -122,106 +122,106 @@
     return RequestRecord;
 }
 
-+(BOOL)isEKAuthorizationStatus
-{
-    BOOL RequestRecord = NO;
-    EKAuthorizationStatus EKstatus = [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
-    switch (EKstatus) {
-        case EKAuthorizationStatusAuthorized:  RequestRecord = YES;  break;
-        case EKAuthorizationStatusDenied:  RequestRecord = NO;  break;
-        case EKAuthorizationStatusNotDetermined: RequestRecord = YES; break;
-        case EKAuthorizationStatusRestricted: RequestRecord = NO; break;
-        default: break;
-    }
-    if (!RequestRecord) {
-        [Helpr addPrefsAlertControllerMessage:@"日历访问受限!去设置"];
-    }
-    return RequestRecord;
-}
-
-+(BOOL)isCNAuthorizationStatus
-{
-    BOOL RequestRecord = NO;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
-   #pragma clang diagnostic push
-   #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        ABAuthorizationStatus ABstatus = ABAddressBookGetAuthorizationStatus();
-        switch (ABstatus) {
-            case kABAuthorizationStatusAuthorized: RequestRecord = YES; break;
-            case kABAuthorizationStatusDenied: RequestRecord = NO; break;
-            case kABAuthorizationStatusNotDetermined: RequestRecord = YES; break;
-            case kABAuthorizationStatusRestricted:  RequestRecord = NO; break; default: break;
-        }
-     #pragma clang diagnostic pop
-    }else {
-        CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
-        switch (status) {
-            case CNAuthorizationStatusAuthorized: RequestRecord = YES; break;
-            case CNAuthorizationStatusDenied:RequestRecord = NO; break;
-            case CNAuthorizationStatusRestricted: RequestRecord = YES ; break;
-            case CNAuthorizationStatusNotDetermined:RequestRecord = NO; break;
-        }
-    }
-    if (!RequestRecord) {
-        [Helpr addPrefsAlertControllerMessage:@"通讯录访问受限!去设置"];
-    }
-    return RequestRecord;
-}
-
-+(BOOL) isUIUserNotificationSettings
-{
-     BOOL RequestRecord = NO;
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 10.0) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            UIUserNotificationSettings *settings = [[UIApplication sharedApplication] currentUserNotificationSettings];
-            switch (settings.types) {
-                case UIUserNotificationTypeNone: RequestRecord = NO; break;
-                case UIUserNotificationTypeAlert: RequestRecord = YES; break;
-                case UIUserNotificationTypeBadge: RequestRecord = YES; break;
-                case UIUserNotificationTypeSound: RequestRecord = YES; break; default: break;
-#pragma clang diagnostic pop
-            }
-        }else {
-            UNNotificationSettings * settings = [UNNotificationSettings sharedInstance];
-            switch (settings.authorizationStatus) {
-                case UNAuthorizationStatusNotDetermined: RequestRecord = YES;   break;
-                case UNAuthorizationStatusDenied:      RequestRecord = NO;   break;
-                case UNAuthorizationStatusAuthorized: RequestRecord = YES;   break;
-                default:
-                    break;
-            }
-        }
-    if (!RequestRecord) {
-        [Helpr addPrefsAlertControllerMessage:@"信息通知受限!去设置"];
-    }
-    return RequestRecord;
-}
-
-+(BOOL)isCBCentralManager
-{
-    BOOL RequestRecord = NO;
-    CBCentralManager * manager = [CBCentralManager  sharedInstance];
-    if (manager.state == CBManagerStatePoweredOn)   RequestRecord = YES;
-    if (!RequestRecord) [Helpr addPrefsAlertControllerMessage:@"蓝牙受限!去设置"];
-    return RequestRecord;
-}
-
-+(BOOL)isHKAuthorizationStatus
-{
-    BOOL RequestRecord = NO;
-    HKQuantityType *stepsType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
-    HKAuthorizationStatus status = [[HKHealthStore sharedInstance] authorizationStatusForType:stepsType];
-    switch (status) {
-        case HKAuthorizationStatusNotDetermined: RequestRecord = YES;   break;
-        case HKAuthorizationStatusSharingDenied:      RequestRecord = NO;   break;
-        case HKAuthorizationStatusSharingAuthorized: RequestRecord = YES;   break;
-        default:
-            break;
-    }
-    if (!RequestRecord) {[Helpr addPrefsAlertControllerMessage:@"运动与健康权限受限!去设置"];}
-    return  NO;
-}
+//+(BOOL)isEKAuthorizationStatus
+//{
+//    BOOL RequestRecord = NO;
+//    EKAuthorizationStatus EKstatus = [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
+//    switch (EKstatus) {
+//        case EKAuthorizationStatusAuthorized:  RequestRecord = YES;  break;
+//        case EKAuthorizationStatusDenied:  RequestRecord = NO;  break;
+//        case EKAuthorizationStatusNotDetermined: RequestRecord = YES; break;
+//        case EKAuthorizationStatusRestricted: RequestRecord = NO; break;
+//        default: break;
+//    }
+//    if (!RequestRecord) {
+//        [Helpr addPrefsAlertControllerMessage:@"日历访问受限!去设置"];
+//    }
+//    return RequestRecord;
+//}
+//
+//+(BOOL)isCNAuthorizationStatus
+//{
+//    BOOL RequestRecord = NO;
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+//   #pragma clang diagnostic push
+//   #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+//        ABAuthorizationStatus ABstatus = ABAddressBookGetAuthorizationStatus();
+//        switch (ABstatus) {
+//            case kABAuthorizationStatusAuthorized: RequestRecord = YES; break;
+//            case kABAuthorizationStatusDenied: RequestRecord = NO; break;
+//            case kABAuthorizationStatusNotDetermined: RequestRecord = YES; break;
+//            case kABAuthorizationStatusRestricted:  RequestRecord = NO; break; default: break;
+//        }
+//     #pragma clang diagnostic pop
+//    }else {
+//        CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+//        switch (status) {
+//            case CNAuthorizationStatusAuthorized: RequestRecord = YES; break;
+//            case CNAuthorizationStatusDenied:RequestRecord = NO; break;
+//            case CNAuthorizationStatusRestricted: RequestRecord = YES ; break;
+//            case CNAuthorizationStatusNotDetermined:RequestRecord = NO; break;
+//        }
+//    }
+//    if (!RequestRecord) {
+//        [Helpr addPrefsAlertControllerMessage:@"通讯录访问受限!去设置"];
+//    }
+//    return RequestRecord;
+//}
+//
+//+(BOOL) isUIUserNotificationSettings
+//{
+//     BOOL RequestRecord = NO;
+//        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 10.0) {
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+//            UIUserNotificationSettings *settings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+//            switch (settings.types) {
+//                case UIUserNotificationTypeNone: RequestRecord = NO; break;
+//                case UIUserNotificationTypeAlert: RequestRecord = YES; break;
+//                case UIUserNotificationTypeBadge: RequestRecord = YES; break;
+//                case UIUserNotificationTypeSound: RequestRecord = YES; break; default: break;
+//#pragma clang diagnostic pop
+//            }
+//        }else {
+//            UNNotificationSettings * settings = [UNNotificationSettings sharedInstance];
+//            switch (settings.authorizationStatus) {
+//                case UNAuthorizationStatusNotDetermined: RequestRecord = YES;   break;
+//                case UNAuthorizationStatusDenied:      RequestRecord = NO;   break;
+//                case UNAuthorizationStatusAuthorized: RequestRecord = YES;   break;
+//                default:
+//                    break;
+//            }
+//        }
+//    if (!RequestRecord) {
+//        [Helpr addPrefsAlertControllerMessage:@"信息通知受限!去设置"];
+//    }
+//    return RequestRecord;
+//}
+//
+//+(BOOL)isCBCentralManager
+//{
+//    BOOL RequestRecord = NO;
+//    CBCentralManager * manager = [CBCentralManager  sharedInstance];
+//    if (manager.state == CBManagerStatePoweredOn)   RequestRecord = YES;
+//    if (!RequestRecord) [Helpr addPrefsAlertControllerMessage:@"蓝牙受限!去设置"];
+//    return RequestRecord;
+//}
+//
+//+(BOOL)isHKAuthorizationStatus
+//{
+//    BOOL RequestRecord = NO;
+//    HKQuantityType *stepsType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+//    HKAuthorizationStatus status = [[HKHealthStore sharedInstance] authorizationStatusForType:stepsType];
+//    switch (status) {
+//        case HKAuthorizationStatusNotDetermined: RequestRecord = YES;   break;
+//        case HKAuthorizationStatusSharingDenied:      RequestRecord = NO;   break;
+//        case HKAuthorizationStatusSharingAuthorized: RequestRecord = YES;   break;
+//        default:
+//            break;
+//    }
+//    if (!RequestRecord) {[Helpr addPrefsAlertControllerMessage:@"运动与健康权限受限!去设置"];}
+//    return  NO;
+//}
 
 
 
